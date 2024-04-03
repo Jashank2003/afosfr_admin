@@ -8,6 +8,7 @@ To securely manage sensitive information such as database URLs, we utilize envir
 
 3. Add the following code block to `env.js`, replacing `"Your mongodb atlas url here"` with your MongoDB Atlas URL:
 
+
 ```javascript
 const env = {
     DATABASE_URL: "Your mongodb atlas url here"
@@ -15,4 +16,4 @@ const env = {
 
 export default env;
 
-dsfsdf
+```
