@@ -3,7 +3,7 @@ import React from 'react'
 const page = () => {
   return (
    <>
-    I am Sales 
+    I am Sales from github
    </>
   )
 }
