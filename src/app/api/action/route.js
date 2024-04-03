@@ -1,10 +1,11 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
+import env from '../../../../env/env';
 
 export async function POST(request) {
     const { productName, avlb } = await request.json();
     
-    const uri = "mongodb+srv://jashankjain224:SPIDERALERT224@cluster0.2osscc1.mongodb.net/?";
+    const uri = env.DATABASE_URL;
     const client = new MongoClient(uri);
 
     try {
@@ -37,7 +38,7 @@ export async function DELETE(request) {
         return new Response(JSON.stringify({ error: 'Missing foodname' }), { status: 400 });
     }
 
-    const uri = "mongodb+srv://jashankjain224:SPIDERALERT224@cluster0.2osscc1.mongodb.net/?";
+    const uri = env.DATABASE_URL;
     const client = new MongoClient(uri);
 
 
