@@ -49,7 +49,7 @@ export default env;
 5. Commit your changes with descriptive commit messages:
     ```
     git add .
-    git commit -am 'Add some feature'
+    git commit -m 'Add some feature'
     ```
 
 6. Push your changes to your fork:
@@ -68,18 +68,18 @@ export default env;
 ## Syncing the repo on local repo
 
 1.  It will fetch the updated repo from the github
-        git fetch upstream
+        ```git fetch upstream```
 
 
 2.  It is used to select the branch to make changes
-        git checkout master
+        ```git checkout master```
 
 
 3.  It is used to merge the codebase on your local machine
-        git merge upstream/master
+        ```git merge upstream/master```
 
 4.  IDK what it is used for but as someone said to run it, I did and you should too.        
-        git rebase upstream/master
+        ```git rebase upstream/master```
 
 NOTE: If using any branch except master change the master with your branch name with that in 3&4.
 
