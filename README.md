@@ -70,8 +70,10 @@ export default env;
 1.  It will fetch the updated repo from the github
         git fetch upstream
 
+
 2.  It is used to select the branch to make changes
         git checkout master
+
 
 3.  It is used to merge the codebase on your local machine
         git merge upstream/master
@@ -80,3 +82,5 @@ export default env;
         git rebase upstream/master
 
 NOTE: If using any branch except master change the master with your branch name with that in 3&4.
+
+
