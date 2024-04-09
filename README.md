@@ -68,24 +68,28 @@ export default env;
 ## Syncing the repo on local repo
 
 1.  It will fetch the updated repo from the github
-        ```
-        git fetch upstream
+
+         ```
+          git fetch upstream
         ```
 
 
-2.  It is used to select the branch to make changes
-        ```
+3.  It is used to select the branch to make changes
+
+         ```
         git checkout master
         ```
 
 
-3.  It is used to merge the codebase on your local machine
-        ```
+5.  It is used to merge the codebase on your local machine
+
+         ```
         git merge upstream/master
         ```
 
-4.  IDK what it is used for but as someone said to run it, I did and you should too.        
-        ```
+7.  IDK what it is used for but as someone said to run it, I did and you should too.        
+
+         ```
         git rebase upstream/master
         ```
 
