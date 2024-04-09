@@ -41,13 +41,15 @@ export default env;
     ```
     git checkout -b <NEW_BRANCH_NAME>
     ```
+    */Mark that this step is optional, it only creates a new branch to existing repo
+        You can continue with master branch only/* 
 
 4. Make your changes to the codebase. Ensure that your changes follow the project's coding conventions and standards.
 
 5. Commit your changes with descriptive commit messages:
     ```
     git add .
-    git commit -am 'Add some feature'
+    git commit -m 'Add some feature'
     ```
 
 6. Push your changes to your fork:
@@ -62,14 +64,35 @@ export default env;
 9. Click on the "Create pull request" button to submit your pull request.
 
 
-ye repo wala .....
 
-ds work added
+## Syncing the repo on local repo
+
+1.  It will fetch the updated repo from the github
+
+         ```
+          git fetch upstream
+        ```
 
 
-added something? ~adityagit check 
+3.  It is used to select the branch to make changes
 
-fhdjf$+#kdmskd
+         ```
+        git checkout master
+        ```
 
-my change to master
-my change to check
+
+5.  It is used to merge the codebase on your local machine
+
+         ```
+        git merge upstream/master
+        ```
+
+7.  IDK what it is used for but as someone said to run it, I did and you should too.        
+
+         ```
+        git rebase upstream/master
+        ```
+
+NOTE: If using any branch except master change the master with your branch name with that in 3&4.
+
+
