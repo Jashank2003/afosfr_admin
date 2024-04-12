@@ -71,27 +71,27 @@ export default env;
 
          ```
           git fetch upstream
-        ```
+         ```
 
 
 3.  It is used to select the branch to make changes
 
          ```
         git checkout master
-        ```
+         ```
 
 
 5.  It is used to merge the codebase on your local machine
 
          ```
         git merge upstream/master
-        ```
+         ```
 
 7.  IDK what it is used for but as someone said to run it, I did and you should too.        
 
          ```
         git rebase upstream/master
-        ```
+         ```
 
 NOTE: If using any branch except master change the master with your branch name with that in 3&4.
 

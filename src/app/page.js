@@ -1,7 +1,15 @@
+"use client"
 import React from 'react'
+import {useState,useEffect} from 'react'
 import Link from 'next/link'
+import { CldUploadWidget } from 'next-cloudinary';
+import { getCldImageUrl } from 'next-cloudinary';
+
 
 const page = () => {
+
+  const [publicId, setPublicId] = useState('');
+
   return (
     <>
     <div className='flex justify-center p-3 flex-row'>
@@ -26,10 +34,11 @@ const page = () => {
         Sales Insights
       </Link>
         </div>
-    </div>
-    
+    </div>      
     </>
   )
 }
 
 export default page
+
+ 

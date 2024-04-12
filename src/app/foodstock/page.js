@@ -1,37 +1,28 @@
 "use client"
 import React from 'react'
 import {useState,useEffect} from 'react'
-// import PizzaLoading from './pizzaload.svg';
+import env from '../../../env/env';
+import { getCldImageUrl } from 'next-cloudinary';
+import { CldUploadWidget } from 'next-cloudinary';
+
+
+
+
 
 const page = () => {
-  
+
+  const [publicId, setPublicId] = useState('');
   const[productForm,setProductForm] = useState({
     avlb:true,
   });
+  // const [selectedFile, setSelectedFile] = useState(null);
   const[products,setProducts] = useState([]);
   const[alert ,setAlert] = useState("");
   const[query , setQuery] = useState("");
   const[loading,setloading] = useState(false)
   const[loadingaction,setloadingaction] = useState(false)
   const[dropdown,setDropdown] = useState([
-  //   {
-  //   "foodname":"burjkger",
-  //   "category":"burhjkger",
-  //   "price":"hj40",
-
-  // },
-  //   {
-  //   "foodname":"burjkger",
-  //   "category":"burhjkger",
-  //   "price":"hj40",
-
-  // },
-  //   {
-  //   "foodname":"burjkger",
-  //   "category":"burhjkger",
-  //   "price":"hj40",
-
-  // },
+  
 ])
 
   useEffect(()=>{
@@ -44,6 +35,7 @@ const page = () => {
     fetchProducts();
   },[])
 
+  
 
   const addProduct = async(e)=>{
     e.preventDefault();
@@ -57,12 +49,19 @@ const page = () => {
     }
 
     try{
+
+      const imageUrl = getCldImageUrl({
+        width: 960,
+        height: 600,
+        src: publicId
+      });
+         console.log(imageUrl);
         const response = await fetch('/api/product',{
             method: 'POST',
             headers:{
                 'content-type':'application/json'
-            },
-            body:JSON.stringify({...productForm,avlb:productForm.avlb ? 'yes':'no'})
+            },                                                                     
+            body:JSON.stringify({...productForm,avlb:productForm.avlb ? 'yes':'no',foodimg:imageUrl })
         });
 
         if(response.ok){
@@ -73,8 +72,8 @@ const page = () => {
               setAlert("");
           }, 2000);
             setProductForm({})
-          // update products table  immediately
-          const newProduct = { ...productForm, avlb: productForm.avlb ? 'yes' : 'no' };
+          // update products table  immediately                                 //,foodimg: imageUrl 
+          const newProduct = { ...productForm, avlb: productForm.avlb ? 'yes' : 'no',foodimg:imageUrl};
           setProducts(prevProducts => [...prevProducts, newProduct]);
             
         }
@@ -218,7 +217,6 @@ const deleteItem = async(foodname)=>{
               return <div key={item.foodname} className='flex justify-between p-2 mb-1 border-b-2'>
                 <span className='foodname'>{item.foodname} at Rs.{item.price}</span>
                 <span className='category'>{item.category}</span>
-                {/* <span className='price'>{item.price}</span> */}
                 <span className='flex flex-row'>
                   <button onClick={() =>{deleteItem(item.foodname)}}   disabled={loadingaction} className=" mx-1 subtract inline-block px-3 py-1 bg-red-500 text-white font-semibold text-xs rounded-lg shadow-md cursor-pointer disabled:bg-red-200">Delete</button>
 
@@ -294,7 +292,7 @@ const deleteItem = async(foodname)=>{
           style={{ width: '16px', height: '16px' }} 
         />
       </label>
-          <input
+          {/* <input
             name="foodimg"
             id="foodimg"
             type="file"
@@ -302,7 +300,20 @@ const deleteItem = async(foodname)=>{
             value={productForm?.foodimg || ""}
             placeholder="Insert Food pic here"
             className="border rounded px-2 py-1 w-full"
-            />
+            /> */}
+            <CldUploadWidget uploadPreset="afosfr"
+                onSuccess={(results) => {
+                  setPublicId(results.info.public_id) 
+                  console.log('Public ID', results.info.public_id);
+                }} >
+                {({ open }) => {
+                    return (
+                      <button className="button bg-yellow-300 p-3" onClick={() => open()}>
+                        Upload
+                      </button>
+                    );
+                  }}
+            </CldUploadWidget>
          
           
         </div>
