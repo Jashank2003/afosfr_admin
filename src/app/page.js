@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { CldUploadWidget } from 'next-cloudinary';
 import { getCldImageUrl } from 'next-cloudinary';
 
+import Navbar from './components/Navbar';
+
 
 const page = () => {
 
@@ -12,6 +14,10 @@ const page = () => {
 
   return (
     <>
+    <div className='flex bg-grey'>
+
+      <Navbar/>
+    <div>
     <div className='flex justify-center p-3 flex-row'>
       <h1 className="text-3xl  text-slate-900 font-bold align-baseline"> ADMIN PANEL</h1>
     </div>
@@ -34,7 +40,9 @@ const page = () => {
         Sales Insights
       </Link>
         </div>
+    </div>
     </div>      
+    </div>
     </>
   )
 }

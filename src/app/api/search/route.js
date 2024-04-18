@@ -21,7 +21,7 @@ export async function GET(request){
                     ]
                 }
             }]).toArray();
-            // console.log(movies);
+          
             return NextResponse.json({success:true,products});
 
         }

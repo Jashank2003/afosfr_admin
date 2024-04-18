@@ -11,11 +11,10 @@ import { CldUploadWidget } from 'next-cloudinary';
 
 const page = () => {
 
-  const [publicId, setPublicId] = useState('');
+  const [publicId, setPublicId] = useState("");
   const[productForm,setProductForm] = useState({
     avlb:true,
   });
-  // const [selectedFile, setSelectedFile] = useState(null);
   const[products,setProducts] = useState([]);
   const[alert ,setAlert] = useState("");
   const[query , setQuery] = useState("");
@@ -55,7 +54,7 @@ const page = () => {
         height: 600,
         src: publicId
       });
-         console.log(imageUrl);
+        //  console.log(imageUrl);
         const response = await fetch('/api/product',{
             method: 'POST',
             headers:{
@@ -292,15 +291,6 @@ const deleteItem = async(foodname)=>{
           style={{ width: '16px', height: '16px' }} 
         />
       </label>
-          {/* <input
-            name="foodimg"
-            id="foodimg"
-            type="file"
-            onChange={handleChange}
-            value={productForm?.foodimg || ""}
-            placeholder="Insert Food pic here"
-            className="border rounded px-2 py-1 w-full"
-            /> */}
             <CldUploadWidget uploadPreset="afosfr"
                 onSuccess={(results) => {
                   setPublicId(results.info.public_id) 

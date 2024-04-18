@@ -12,8 +12,15 @@ export async function GET(request){
             const inventory = database.collection('inventory');
             const query = {};
             const products = await inventory.find(query).toArray();
-            // console.log(movies);
-            return NextResponse.json({success:true,products});
+            
+            return NextResponse.json({success:true,products},{
+                status: 200,
+                headers: {
+                  'Access-Control-Allow-Origin': '*',
+                  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                },
+              });
 
         }
         finally{
@@ -40,36 +47,3 @@ export async function POST(request){
             await client.close();
         }
 }
-
-// export async function POST(request){
-
-//     const{foodname,category,fooding,avlb,foodimg}  = await request.json();
-//     // console.log(body);
-//     const uri=env.DATABASE_URL;
-//     const client = new MongoClient(uri);
-
-//         try{
-//             const database =  client.db('afosfr');
-//             const inventory = database.collection('inventory');
-
-//             const cloudinaryResult = await cloudinary.uploader.upload(foodimg , {
-//                 folder:'menu'
-//                 // you can also adjust width height scale and other things of the image
-//             });
-//             console.log(cloudinaryResult);  
-//              const result = {
-//                 foodname,
-//                 category,
-//                 fooding,
-//                 avlb,
-//                 foodimg: cloudinaryResult.secure_url // Storing the Cloudinary URL
-//                 };
-                
-//             const product = await inventory.insertOne(result);
-//             return NextResponse.json({product , ok:true});
-
-//         }
-//         finally{
-//             await client.close();
-//         }
-// }
