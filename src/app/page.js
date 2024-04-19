@@ -7,7 +7,6 @@ import { getCldImageUrl } from 'next-cloudinary';
 
 import Navbar from './components/Navbar';
 
-
 const page = () => {
 
   const [publicId, setPublicId] = useState('');
@@ -15,9 +14,8 @@ const page = () => {
   return (
     <>
     <div className='flex bg-grey'>
-
-      <Navbar/>
-    <div>
+       <Navbar/>
+    <div className='h-screen overflow-scroll grow overflow-x-hidden'>
     <div className='flex justify-center p-3 flex-row'>
       <h1 className="text-3xl  text-slate-900 font-bold align-baseline"> ADMIN PANEL</h1>
     </div>

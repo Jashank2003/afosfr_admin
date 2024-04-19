@@ -4,6 +4,7 @@ import {useState,useEffect} from 'react'
 import env from '../../../env/env';
 import { getCldImageUrl } from 'next-cloudinary';
 import { CldUploadWidget } from 'next-cloudinary';
+import Navbar from '../components/Navbar';
 
 
 
@@ -183,6 +184,11 @@ const deleteItem = async(foodname)=>{
 
   return (
     <> 
+    <div className='flex '>
+
+    <Navbar/>
+    <div className='h-screen overflow-scroll grow overflow-x-hidden'>
+
     <h1 className='text-2xl text-center font-bold mt-1 p-3'>Manage Food Stock here:</h1>
       
     <div className="mx-auto p-8  max-w-screen-xl bg-pink-300 ">
@@ -250,17 +256,17 @@ const deleteItem = async(foodname)=>{
             value={productForm?.foodname || ""}
             placeholder="Food Name"
             className="border rounded px-2 py-1 w-full"
-          />
+            />
           <input
            
-            name="category"
-            id="category"
-            type="text"
-            onChange={handleChange}
-            value={productForm?.category || ""}
-            placeholder="Category"
-            className="border rounded px-2 py-1 w-full"
-            />
+           name="category"
+           id="category"
+           type="text"
+           onChange={handleChange}
+           value={productForm?.category || ""}
+           placeholder="Category"
+           className="border rounded px-2 py-1 w-full"
+           />
           <input
             name="price"
             id="price"
@@ -278,7 +284,7 @@ const deleteItem = async(foodname)=>{
             value={productForm?.fooding || ""}
             placeholder="Ingredients"
             className="border rounded px-2 py-1 w-full"
-          />
+            />
                <label htmlFor="avlb" className="flex bg-gray-100 border rounded px-2 py-1 w-full">
         Availability
         <input
@@ -297,8 +303,8 @@ const deleteItem = async(foodname)=>{
                   console.log('Public ID', results.info.public_id);
                 }} >
                 {({ open }) => {
-                    return (
-                      <button className="button bg-yellow-300 p-3" onClick={() => open()}>
+                  return (
+                    <button className="button bg-yellow-300 p-3" onClick={() => open()}>
                         Upload
                       </button>
                     );
@@ -343,7 +349,8 @@ const deleteItem = async(foodname)=>{
           </tbody>
         </table>
       </div>
-    
+      </div>
+            </div>
             </>
   )
 }
