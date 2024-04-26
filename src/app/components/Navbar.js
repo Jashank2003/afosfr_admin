@@ -30,8 +30,9 @@ const Navbar = () => {
 
   return (
     <>  
-      
-      <div className={`flex flex-col bg-[#161616] w-72 h-screen delay-75 ${showNavbar ?'':'hidden -translate-x-full ease-in-out duration-2000'} `}>
+      {showNavbar && (
+      <div className={`flex flex-col bg-[#161616] w-72 h-screen transition-all duration-500 ease-in-out    `}> 
+      {/* ${showNavbar ?'':'-translate-x-72 '} */}
         {/* four flex items */}
         <div className=" -mb-16 mt-1">
           <button onClick={handleClick} className="p-2  ml-2 mt-2 rounded-lg   w-10 hover:bg-[#50607D] "><ArrowBarLeft size={26} color="white"/></button>
@@ -65,7 +66,7 @@ const Navbar = () => {
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
             />{" "}
-            Food Stock
+            Inventory
           </Link>
           <Link href="/sales" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/sales' ? 'bg-[#50607D]' : ''}`}>
             <Analytics
@@ -96,11 +97,12 @@ const Navbar = () => {
           </Link>
           </div>
       </div>
-
+    )}
       {/* Short navbar starts  */}
 
-
-      <div className={`flex flex-col bg-[#161616] w-14 h-screen rounded-r-sm transition ease-in-out duration-1000 ${showNavbar? 'hidden ':'inline-block'}`}>
+      {!showNavbar && (
+      <div className={`flex flex-col bg-[#161616] w-14 h-screen rounded-r-sm transition-all duration-500 ease-in-out `}>
+        {/* ${showNavbar? 'opacity-0 ':'opacity-100'} */}
         {/* four flex items */}
         <div className=" -mb-16 mt-1 h-24">
           <button onClick={handleClick} className="p-2  ml-2 mt-2 rounded-lg   w-10 hover:bg-[#50607D] "><ArrowRight size={26} color="white"/></button>
@@ -140,7 +142,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="w-48 m-auto">
+        <div className="w-12 m-auto">
           <hr />
         </div>
 
@@ -153,7 +155,8 @@ const Navbar = () => {
             />
           </Link>
           </div>
-      </div>     
+      </div>  
+      )}
     </>
   );
 };
