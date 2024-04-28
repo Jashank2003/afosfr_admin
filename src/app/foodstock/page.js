@@ -199,12 +199,12 @@ const deleteItem = async(foodname)=>{
 
   return (
     <> 
-    <div className='flex  bg-black text-black'>
+    <div className='flex  bg-black text-black '>
 
     <Navbar/>
-    <div className='h-screen overflow-scroll grow overflow-x-hidden'>
+    <div className='h-screen overflow-scroll grow overflow-x-hidden pb-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-800 scrollbar-track-zinc-900 overflow-y-scroll scrollbar-thin scrollbar-corner-zinc-950'>
 
-    <h1 className='text-4xl  font-semibold my-2 ml-4 py-3 text-white'>Food Stock Manager</h1>
+    <h1 className='mx-4 text-white my-5 text-4xl tracking-wider'>Food Stock Manager</h1>
     <div className='my-4 ml-4'> <hr /></div>
     
     <div className='flex flex-row justify-between align-middle  p-1 mx-4 '>

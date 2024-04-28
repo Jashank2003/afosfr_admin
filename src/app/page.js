@@ -13,33 +13,21 @@ const page = () => {
 
   return (
     <>
-    <div className='flex bg-grey'>
+    <div className='flex bg-black'>
        <Navbar/>
-    <div className='h-screen overflow-scroll grow overflow-x-hidden'>
-    <div className='flex justify-center p-3 flex-row'>
-      <h1 className="text-3xl  text-slate-900 font-bold align-baseline"> ADMIN PANEL</h1>
-    </div>
+    <div className=' mx-4 h-screen overflow-scroll grow overflow-x-hidden text-white'>
+      
+      <h1 className='my-8 text-center text-4xl tracking-wider'>ADMIN PANEL</h1>
 
-    <div className=" mt-4  p-3 bg-black flex justify-center">
-      <div className='m-4 p-4 bg-green-300 text-lg font-semibold cursor-pointer duration-150 hover:bg-green-400 '>
-        <Link href="/foodstock">
-        Food Stocks
-      </Link>
+      <div className='flex mt-12 justify-evenly '>
+        <div className=' w-48 h-52 bg-[#161616] p-2 mx-2 rounded-xl'>
+          
         </div>
-        
-      <div className='m-4 p-4 bg-green-300 text-lg font-semibold cursor-pointer duration-150 hover:bg-green-400 '>
-        <Link href="/liveorders">
-        Live Orders
-      </Link>
-        </div >
-
-      <div className='m-4 p-4 bg-green-300 text-lg font-semibold cursor-pointer duration-150 hover:bg-green-400 '>
-        <Link href="/sales">
-        Sales Insights
-      </Link>
-        </div>
+        <div className=' w-48 h-52 bg-[#161616] p-2 mx-2 rounded-xl'></div>
+        <div className=' w-48 h-52 bg-[#161616] p-2 mx-2 rounded-xl'></div>
+        <div className=' w-48 h-52 bg-[#161616] p-2 mx-2 rounded-xl'></div>
+      </div>
     </div>
-    </div>      
     </div>
     </>
   )

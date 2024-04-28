@@ -29,9 +29,11 @@ const Navbar = () => {
 
 
   return (
-    <>  
+    <> 
+        <div> 
+
       {showNavbar && (
-      <div className={`flex flex-col bg-[#161616] w-72 h-screen transition-all duration-500 ease-in-out    `}> 
+        <div className={`relative flex flex-col bg-[#161616] w-72 h-screen `}> 
       {/* ${showNavbar ?'':'-translate-x-72 '} */}
         {/* four flex items */}
         <div className=" -mb-16 mt-1">
@@ -40,7 +42,7 @@ const Navbar = () => {
             src="logo.png"
             alt="logo of the company"
             className="w-72 h-72  m-auto -mb-2"
-          />
+            />
         </div>
 
         <div className="flex flex-col mb-3 p-2  m-auto">
@@ -57,7 +59,7 @@ const Navbar = () => {
               size={26}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
-            />{" "}
+              />{" "}
             Live orders
           </Link>
           <Link href="/foodstock" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/foodstock' ? 'bg-[#50607D]' : ''}`}>
@@ -73,7 +75,7 @@ const Navbar = () => {
               size={26}
               color="#B9B9B9"
               style={{ marginRight: "5px" }}
-            />{" "}
+              />{" "}
             Analytics
           </Link>
           <Link href="#" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
@@ -92,7 +94,7 @@ const Navbar = () => {
               size={26}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
-            />{" "}
+              />{" "}
             Settings
           </Link>
           </div>
@@ -101,7 +103,7 @@ const Navbar = () => {
       {/* Short navbar starts  */}
 
       {!showNavbar && (
-      <div className={`flex flex-col bg-[#161616] w-14 h-screen rounded-r-sm transition-all duration-500 ease-in-out `}>
+        <div className={` relative flex flex-col bg-[#161616] w-14 h-screen rounded-r-sm `}>
         {/* ${showNavbar? 'opacity-0 ':'opacity-100'} */}
         {/* four flex items */}
         <div className=" -mb-16 mt-1 h-24">
@@ -121,7 +123,7 @@ const Navbar = () => {
               size={28}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
-            />
+              />
           </Link>
           <Link href="/foodstock" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/foodstock' ? 'bg-[#50607D]' : ''}`}>
             <LocationFood
@@ -135,7 +137,7 @@ const Navbar = () => {
               size={28}
               color="#B9B9B9"
               style={{ marginRight: "5px" }}
-            />
+              />
           </Link>
           <Link href="#" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
             <History size={28} color="#B9B9B9" style={{ marginRight: "5px" }} />
@@ -152,11 +154,12 @@ const Navbar = () => {
               size={28}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
-            />
+              />
           </Link>
           </div>
       </div>  
       )}
+      </div>
     </>
   );
 };
