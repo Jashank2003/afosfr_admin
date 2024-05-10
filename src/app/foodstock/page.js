@@ -2,7 +2,6 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
 import Link from 'next/link';
-import env from '../../../env/env';
 import { getCldImageUrl } from 'next-cloudinary';
 import { CldUploadWidget } from 'next-cloudinary';
 import Navbar from '../components/Navbar';

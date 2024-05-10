@@ -1,11 +1,10 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
-import env from '../../../../env/env'
-import cloudinary from '../utils/cloudinary'
+ import cloudinary from '../utils/cloudinary'
 
 export async function GET(request){
 
-    const uri=env.DATABASE_URL;
+    const uri=  process.env.DATABASE_URL;
     const client = new MongoClient(uri);
     const url = new URL(request.url);
     const params = new URLSearchParams(url.search);
@@ -46,7 +45,7 @@ export async function GET(request){
             status: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             },
         });

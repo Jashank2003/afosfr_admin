@@ -1,7 +1,6 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
-import env from '../../../../env/env'
-import cloudinary from '../utils/cloudinary'
+ import cloudinary from '../utils/cloudinary'
 import useOrderStore from '../../../../contexts/orderStore';
 
 
@@ -14,7 +13,7 @@ export async function POST(request) {
  
     body.orderno = dailyOrderCount; 
 
-    const uri = env.DATABASE_URL;
+    const uri =   process.env.DATABASE_URL;
     const client = new MongoClient(uri);
 
     try {
@@ -33,7 +32,7 @@ export async function POST(request) {
 
 // export async function GET(request){
 
-//     const uri=env.DATABASE_URL;
+//     const uri=  process.env.DATABASE_URL;
 //     const client = new MongoClient(uri);
 //         try{
 //             const database =  client.db('afosfr');

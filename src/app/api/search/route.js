@@ -1,11 +1,11 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
-import env from "../../../../env/env";
+// import env from "../../../../env/env";
 export async function GET(request){
 
     const query = request.nextUrl.searchParams.get("query");
     // console.log(query);
-    const uri=env.DATABASE_URL;
+    const uri=  process.env.DATABASE_URL;
     const client = new MongoClient(uri);
         try{
             const database =  client.db('afosfr');

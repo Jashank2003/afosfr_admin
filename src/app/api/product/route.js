@@ -1,12 +1,11 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
-import env from '../../../../env/env'
-import cloudinary from '../utils/cloudinary'
+ import cloudinary from '../utils/cloudinary'
 
 export async function GET(request){
 
-    const uri=env.DATABASE_URL;
-    const client = new MongoClient(uri);
+    const uri=process.env.DATABASE_URL;   
+     const client = new MongoClient(uri);
         try{
             const database =  client.db('afosfr');
             const inventory = database.collection('inventory');
@@ -32,8 +31,8 @@ export async function POST(request){
 
     let body = await request.json();
     // console.log(body);
-    const uri=env.DATABASE_URL;
-    const client = new MongoClient(uri);
+    const uri= process.env.DATABASE_URL;   
+     const client = new MongoClient(uri);
 
         try{
             const database =  client.db('afosfr');
