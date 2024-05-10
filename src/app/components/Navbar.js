@@ -78,7 +78,7 @@ const Navbar = () => {
               />{" "}
             Analytics
           </Link>
-          <Link href="#" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/ordershistory" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
             <History size={26} color="#B9B9B9" style={{ marginRight: "5px" }} />{" "}
             History
           </Link>
