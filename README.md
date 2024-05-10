@@ -2,25 +2,14 @@
 
 To securely manage sensitive information such as database URLs, we utilize environment variables. Follow these steps to set up your environment variables:
 
-1. Create an `env` folder in the root directory of the project.
-
-2. Inside the `env` folder, create a file named `env.js`.
-
-3. Add the following code block to `env.js`, replacing `"Your mongodb atlas url here"` with your MongoDB Atlas URL:
+make a file in root directory named as .env and add 
 
 ```javascript
-const env = {
-    DATABASE_URL: "Your mongodb atlas url here"
-};
-
-export default env;
-
-```
-
-4. Also  make a file in root directory named as .env and add 
-
-```javascript
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="your cldname"
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="Your cld name"
+DATABASE_URL: "mongodb url"
+CLD_API_NM:"cld api name"
+CLD_API_KEY: "cld api key"
+CLD_API_SECRET: "cld api secret"
 ```
 
 ## Contributing
