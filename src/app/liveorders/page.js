@@ -1,16 +1,26 @@
 "use client"
-import React from 'react'
+import {React , useState , useEffect} from 'react'
 import Navbar from '../components/Navbar';
-
+import useOrderStore from '../../../contexts/orderStore';
 
 const page = () => {
+
+
+  const { dailyOrderCount , resetDailyOrderCount , incrementDailyOrderCount } = useOrderStore();
+  const [localDailyOrderCount, setLocalDailyOrderCount] = useState(dailyOrderCount);
+
+ 
+    // incrementDailyOrderCount();
+  
+
   return (
     <>
     <div className='flex bg-black'>
        <Navbar/>
 
     <div className='h-screen overflow-y-hidden grow '>
-    <h1 className='text-4xl my-5 ml-4  text-white tracking-wider '>Orders</h1>
+    <h1 className='text-4xl my-5 ml-4  text-white tracking-wider '>Orders </h1>
+     <p className='text-white'>{dailyOrderCount}</p>
     <div className='my-2 ml-4'> <hr /></div>
 
     {/* live orderss here */}

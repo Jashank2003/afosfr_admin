@@ -2,6 +2,34 @@ import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
 import env from '../../../../env/env'
 import cloudinary from '../utils/cloudinary'
+import useOrderStore from '../../../../contexts/orderStore';
+
+
+export async function POST(request) {
+    let body = await request.json();
+  
+    const { incrementDailyOrderCount } = useOrderStore.getState();
+    const { dailyOrderCount} = useOrderStore.getState();
+    incrementDailyOrderCount();
+ 
+    body.orderno = dailyOrderCount; 
+
+    const uri = env.DATABASE_URL;
+    const client = new MongoClient(uri);
+
+    try {
+        const database = client.db('afosfr');
+        const orders = database.collection('orders');
+
+        // Insert the order into the database
+        const neworder = await orders.insertOne(body);
+
+        // Return the updated order data with the incremented dailyordercount
+        return NextResponse.json({ neworder, ok: true, dailyOrderCount });
+    } finally {
+        await client.close();
+    }
+}
 
 // export async function GET(request){
 
@@ -27,23 +55,3 @@ import cloudinary from '../utils/cloudinary'
 //             await client.close();
 //         }
 // }
-
-export async function POST(request){
-
-    let body = await request.json();
-    // console.log(body);
-    const uri=env.DATABASE_URL;
-    const client = new MongoClient(uri);
-
-        try{
-            const database =  client.db('afosfr');
-            const orders = database.collection('orders');
-           
-            const neworder = await orders.insertOne(body);
-            return NextResponse.json({neworder , ok:true});
-
-        }
-        finally{
-            await client.close();
-        }
-}
