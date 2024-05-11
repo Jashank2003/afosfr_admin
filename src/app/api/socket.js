@@ -5,6 +5,11 @@ import fetch from 'node-fetch';
 
 export default async function handler(req, res) {
 
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
   const { dailyOrderCount} = useOrderStore();
 
   if (!res.socket.server.io) {
@@ -19,7 +24,7 @@ export default async function handler(req, res) {
   // Example options:
         cors: {
             origin: "*", // Allow connections from any origin (for demonstration purposes)
-            methods: ["GET", "POST"] // Allow only GET and POST requests
+            methods: "*" // Allow only GET and POST requests
         },
         transports: ["websocket"] // Use only WebSocket transport
         });
@@ -49,6 +54,6 @@ export default async function handler(req, res) {
 
     res.socket.server.io = io;
   }
-
+ 
   res.end();
 }
