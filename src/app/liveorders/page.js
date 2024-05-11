@@ -16,7 +16,7 @@ const page = () => {
     // incrementDailyOrderCount();
     useEffect(() => {
       if (!socket) {
-        const newSocket = io('http://localhost:3000/api/socket'); // Replace with your WebSocket URL
+        const newSocket = io('https://afosfr-admin-v6lq.vercel.app/api/socket'); // Replace with your WebSocket URL
         setSocket(newSocket);
   
         newSocket.on('orderReceived', (data) => {
