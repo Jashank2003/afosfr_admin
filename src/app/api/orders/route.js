@@ -1,18 +1,12 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
- import cloudinary from '../utils/cloudinary'
-import useOrderStore from '../../../../contexts/orderStore';
+import cloudinary from '../utils/cloudinary'
+
 
 
 export async function POST(request) {
     let body = await request.json();
   
-    const { incrementDailyOrderCount } = useOrderStore.getState();
-    const { dailyOrderCount} = useOrderStore.getState();
-    incrementDailyOrderCount();
- 
-    body.orderno = dailyOrderCount; 
-
     const uri =   process.env.DATABASE_URL;
     const client = new MongoClient(uri);
 
