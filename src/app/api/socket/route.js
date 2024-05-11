@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const io = new Server(httpServer, {
   // Example options:
         cors: {
-            origin: process.env.SOCKET_IO_CORS_ORIGIN || "*", // Allow connections from any origin (for demonstration purposes)
+            origin: "*", // Allow connections from any origin (for demonstration purposes)
             methods: ["GET", "POST"] // Allow only GET and POST requests
         },
         transports: ["websocket"] // Use only WebSocket transport
