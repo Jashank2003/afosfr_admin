@@ -4,28 +4,17 @@ import Navbar from '../components/Navbar';
 import useOrderStore from '../../../contexts/orderStore';
 import Livecard from '../components/Livecard';
 import Ordereadycard from '../components/Ordereadycard';
-import io from 'socket.io-client';
-
 const page = () => {
 
 
-  const { dailyOrderCount , resetDailyOrderCount , incrementDailyOrderCount } = useOrderStore();
-  const [socket, setSocket] = useState(null);
+  // const { dailyOrderCount , resetDailyOrderCount , incrementDailyOrderCount } = useOrderStore();
+
   const [orderData, setOrderData] = useState(null);
  
     // incrementDailyOrderCount();
-    useEffect(() => {
-      if (!socket) {
-        const newSocket = io('https://afosfr-admin-v6lq.vercel.app/api/socket'); // Replace with your WebSocket URL
-        setSocket(newSocket);
-  
-        newSocket.on('orderReceived', (data) => {
-          setOrderData(data);
-        });
-      }
-    }, [socket]);
+   
 
-
+    
   return (
     <>
     <div className='flex bg-black'>
@@ -33,6 +22,7 @@ const page = () => {
 
     <div className='h-screen overflow-y-hidden grow '>
     <h1 className='text-4xl my-5 ml-4  text-white tracking-wider '>Orders </h1>
+     
      {/* <p className='text-white'>{dailyOrderCount}</p> */}
     <div className='my-2 ml-4'> <hr /></div>
 
@@ -41,15 +31,13 @@ const page = () => {
     <div className='flex  mx-4 my-4 h-[40vh] overflow-x-auto overflow-y-hidden scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-400 scrollbar-track-zinc-900 scrollbar-thin scrollbar-corner-zinc-300  '>
 
     <div>
-    {orderData && ( // Only render Livecard if orderData is available
-      <Livecard
+      {/* <Livecard
         orderId={orderData.orderId}
         name={orderData.name}
         order={orderData.order}
         amount={orderData.amount}
         dailycount={orderData.dailycount}
-      />
-    )}
+      /> */}
   </div>
     
     </div>

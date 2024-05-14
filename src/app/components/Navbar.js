@@ -46,7 +46,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col mb-3 p-2  m-auto">
-            <Link href="/"className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
+            <Link href="/dashboard"className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
               size={26}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
@@ -111,7 +111,7 @@ const Navbar = () => {
         </div>
         
         <div className="flex flex-col mb-3 p-2  m-auto">
-            <Link href="/"className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
+            <Link href="/dashboard"className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
               size={28}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
