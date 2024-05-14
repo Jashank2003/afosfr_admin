@@ -10,7 +10,7 @@ export default function Home() {
   const data = "1* pizza";
 
   useEffect(() => {
-    const socket = io('http://localhost:5000');
+    const socket = io('https://afosfr-server.onrender.com/');
     setsocket(socket);
 
     socket.on("newOrder",(data)=>{
