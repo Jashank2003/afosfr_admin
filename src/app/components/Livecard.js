@@ -1,11 +1,63 @@
 "use client";
 import React from "react";
 import {IndianRupeeSign} from '@styled-icons/fa-solid/IndianRupeeSign'
+import useLiveOrderList from '../../../contexts/liveOrderList'
+import useReadyOrderList from '../../../contexts/readyOrderList';
+
+const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) => {
+
+  const {readyOrderOf} = useLiveOrderList();
+  const { readyOrders, addReadyOrder } = useReadyOrderList();
+
+  const handleReady = async () => {
+    try {
+        // Make a POST request to your API endpoint
+        const response = await fetch('/api/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                orderId,
+                refId,
+                name,
+                contact,
+                order,
+                amount,
+                dailycount
+            }),
+        });
+
+        // If the request is successful, call readyOrderOf to remove the order from the list
+        if (response.ok) {
+            readyOrderOf(orderId);
+
+            const data = {
+              orderId,
+              refId,
+              name,
+              contact,
+              order,
+              amount,
+              dailycount
+          };
 
 
-const Livecard = ({ orderId, name, order, amount ,dailycount }) => {
-  
- 
+          addReadyOrder(data);
+          console.log(readyOrders);
+        } else {
+            console.error('Failed to insert order into database');
+        }
+    } catch (error) {
+        console.error('Error while making POST request:', error);
+    }
+};
+
+ const handleDecline = ()=>{
+    confirm("Are you want to decline the order?");
+    readyOrderOf(orderId);
+ }
+
   return (
     
     <>
@@ -28,8 +80,8 @@ const Livecard = ({ orderId, name, order, amount ,dailycount }) => {
         <p className="p-2 border-t border-b  border-white w-full rounded-sm shadow-md text-center bg-black text-l font-bold text-white"><IndianRupeeSign size={20} color="green"/> {amount}</p>
 
         <div className="flex ">
-        <button className=" rounded-l-md text-md outline-none bg-green-400 px-8 py-1.5 hover:bg-green-500 duration-150">Ready</button>
-        <button className=" rounded-r-md text-md outline-none bg-red-400 px-5 py-1.5 hover:bg-red-500 duration-150">Decline</button>
+        <button onClick={handleReady} className=" rounded-l-md text-md outline-none bg-green-400 px-8 py-1.5 hover:bg-green-500 duration-150">Ready</button>
+        <button onClick={handleDecline} className=" rounded-r-md text-md outline-none bg-red-400 px-5 py-1.5 hover:bg-red-500 duration-150">Decline</button>
         </div>
     </div>
    

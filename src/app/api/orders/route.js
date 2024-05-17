@@ -18,7 +18,7 @@ export async function POST(request) {
         const neworder = await orders.insertOne(body);
 
         // Return the updated order data with the incremented dailyordercount
-        return NextResponse.json({ neworder, ok: true, dailyOrderCount });
+        return NextResponse.json({ neworder, ok: true, });
     } finally {
         await client.close();
     }

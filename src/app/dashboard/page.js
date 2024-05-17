@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { CldUploadWidget } from 'next-cloudinary';
 import { getCldImageUrl } from 'next-cloudinary';
 import useOrderStore from '../../../contexts/orderStore';
+import useLiveOrderList from '../../../contexts/liveOrderList';
 import Navbar from '../components/Navbar';
 import {PencilSquare} from '@styled-icons/bootstrap/PencilSquare';
 import {Reset} from '@styled-icons/boxicons-regular/Reset';
@@ -12,11 +13,13 @@ import {Reset} from '@styled-icons/boxicons-regular/Reset';
 const page = () => {
 
   const { dailyOrderCount , resetDailyOrderCount , incrementDailyOrderCount } = useOrderStore();
-
+  const {resetLiveOrderList} = useLiveOrderList();
   const resetOrder = ()=>{
 
-    confirm("Are You Sure you want to reset order count");
+    confirm("Are You Sure you want to reset order count and live orders");
     resetDailyOrderCount();
+    resetLiveOrderList();
+
   }
   const [publicId, setPublicId] = useState('');
 
