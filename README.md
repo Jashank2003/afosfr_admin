@@ -1,3 +1,4 @@
+#PalatePrestige
 ## Setting up Environment Variables
 
 To securely manage sensitive information such as database URLs, we utilize environment variables. Follow these steps to set up your environment variables:
