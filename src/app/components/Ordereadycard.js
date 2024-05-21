@@ -9,7 +9,6 @@ const Ordereadycard = (props) => {
     return (
       <>
         <div className="bg-[#161616] py-1 pb-3 px-3 my-2 mx-4 rounded-lg shadow w-[18vw] h-[34vh]">
-          {/* <span className="text-white font-bold rounded-2xl bg-red-400 w-7 h-7 p-0.5 px-2 text-center -mx-4 -my-1">Ordernum:{dailycount}</span> */}
           <h2 className="text-lg  text-white text-center my-1 mb-2">Order ready for <span className="font-bold">{name} </span></h2>
           <h1 className="text-lg text-center mx-auto align-middle text-white mb-1">OrderNum: {dailycount}</h1>
           

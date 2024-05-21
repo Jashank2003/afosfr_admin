@@ -1,38 +1,41 @@
 "use client"
 import {React , useState , useEffect} from 'react'
 import Navbar from '../components/Navbar';
+import Livecard from '../components/Livecard';
+import Ordereadycard from '../components/Ordereadycard';
+
 import useOrderStore from '../../../contexts/orderStore';
 import useLiveOrderList from '../../../contexts/liveOrderList';
 import useReadyOrderList from '../../../contexts/readyOrderList';
-import Livecard from '../components/Livecard';
-import Ordereadycard from '../components/Ordereadycard';
 import {io} from 'socket.io-client';
 
 
 const page = () => {
   
-  
-  const { dailyOrderCount , incrementDailyOrderCount } = useOrderStore();
+
+  const { dailyOrderCount , incrementDailyOrderCount,dailyRevenue,updateRevenue } = useOrderStore();
   const {orders ,setOrders} = useLiveOrderList();
   const {readyOrders} = useReadyOrderList();
   
   
   const [socket,setsocket] = useState(undefined)
  
-    // incrementDailyOrderCount();
+    
     useEffect(() => { 
      const  socket = io('https://afosfr-server.onrender.com/'); 
       setsocket(socket);
   
       socket.on("fetchOrder",(data)=>{
         incrementDailyOrderCount();
+        updateRevenue(data.amount);
+
          setOrders(data,dailyOrderCount+1);
-         console.log(orders);
+        //  console.log(orders);
        })
        return () => {
         socket.off("fetchOrder"); // Cleanup socket event listener on component unmount
       };
-    },[dailyOrderCount, incrementDailyOrderCount, setOrders, readyOrders]);
+    },[dailyOrderCount, incrementDailyOrderCount,dailyRevenue,updateRevenue, setOrders, readyOrders]);
     
   return (
     <>
@@ -42,7 +45,7 @@ const page = () => {
     <div className='h-screen overflow-y-scroll grow '>
     <h1 className='text-4xl my-5 ml-4  text-white tracking-wider '>Orders </h1>
      
-     {/* <p className='text-white'>{dailyOrderCount}</p> */}
+   
     <div className='my-2 ml-4'> <hr /></div>
 
     {/* live orderss here */}
@@ -73,7 +76,7 @@ const page = () => {
     {/* orders completed here */}
     <div className='my-2 ml-4'> <hr /></div>
     <h1 className='mb-3 text-center text-lg  font-semibold tracking-wide text-white'>Orders Ready</h1>
-    <div className='flex  mx-4 my-1 h-[40vh] scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-400 scrollbar-track-zinc-900 scrollbar-thin scrollbar-corner-zinc-300 '>
+    <div className=' flex flex-row mx-4 my-4  h-[40vh] overflow-x-auto  scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-400 scrollbar-track-zinc-900 scrollbar-thin scrollbar-corner-zinc-300 '>
     
    { readyOrders.map((order, index) => (
             <Ordereadycard

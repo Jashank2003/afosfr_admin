@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import {useState} from 'react';
 import {IndianRupeeSign} from '@styled-icons/fa-solid/IndianRupeeSign'
 import useLiveOrderList from '../../../contexts/liveOrderList'
 import useReadyOrderList from '../../../contexts/readyOrderList';
@@ -8,8 +9,10 @@ const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) =>
 
   const {readyOrderOf} = useLiveOrderList();
   const { readyOrders, addReadyOrder } = useReadyOrderList();
+  const [loading,setLoading] = useState(false);
 
   const handleReady = async () => {
+    setLoading(true);
     try {
         // Make a POST request to your API endpoint
         const response = await fetch('/api/orders', {
@@ -51,11 +54,14 @@ const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) =>
     } catch (error) {
         console.error('Error while making POST request:', error);
     }
+    setLoading(false);
 };
 
  const handleDecline = ()=>{
+    setLoading(true);
     confirm("Are you want to decline the order?");
     readyOrderOf(orderId);
+    setLoading(false);
  }
 
   return (
@@ -80,8 +86,13 @@ const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) =>
         <p className="p-2 border-t border-b  border-white w-full rounded-sm shadow-md text-center bg-black text-l font-bold text-white"><IndianRupeeSign size={20} color="green"/> {amount}</p>
 
         <div className="flex ">
-        <button onClick={handleReady} className=" rounded-l-md text-md outline-none bg-green-400 px-8 py-1.5 hover:bg-green-500 duration-150">Ready</button>
-        <button onClick={handleDecline} className=" rounded-r-md text-md outline-none bg-red-400 px-5 py-1.5 hover:bg-red-500 duration-150">Decline</button>
+        <button onClick={handleReady} className=" rounded-l-md text-md outline-none bg-green-400 px-8 py-1.5 hover:bg-green-500 duration-150">{loading && (
+                <span className='inset-0 '>
+                  <img src="/pizzaload.svg" alt="Loading..." className="w-2 h-2" />
+                </span>
+              )}Ready 
+        </button>
+        <button onClick={handleDecline} className=" rounded-r-md text-md outline-none bg-red-400 px-5 py-1.5 hover:bg-red-500 duration-150">Decline </button>
         </div>
     </div>
    
