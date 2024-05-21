@@ -1,3 +1,10 @@
+# PalatePrestige
+
+![Screenshot 2024-05-14 213003](https://github.com/Jashank2003/afosfr_admin/assets/91665950/c65e0492-2634-42c0-bed4-bf62f784d35c)
+![Screenshot 2024-05-15 083909](https://github.com/Jashank2003/afosfr_admin/assets/91665950/619fe545-8e23-4a09-93d7-71a2434d2528)
+![Screenshot 2024-05-14 212839](https://github.com/Jashank2003/afosfr_admin/assets/91665950/e615872c-6b4b-44df-a7f0-ac69a808871f)
+![Screenshot 2024-05-18 135359](https://github.com/Jashank2003/afosfr_admin/assets/91665950/2f4d0671-4338-4918-a521-4a50d292b81e)
+
 ## Setting up Environment Variables
 
 To securely manage sensitive information such as database URLs, we utilize environment variables. Follow these steps to set up your environment variables:
