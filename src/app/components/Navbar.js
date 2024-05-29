@@ -3,7 +3,7 @@ import React from "react";
 import {useState} from "react";
 import Link from 'next/link'
 import { useRouter ,usePathname } from 'next/navigation';
-
+import useNavabarstate from '../../../contexts/navbarstate'
 
 import { Dashboard } from "@styled-icons/material-rounded/Dashboard";
 import { PiggyBank } from "@styled-icons/fa-solid/PiggyBank";
@@ -13,6 +13,7 @@ import { History } from "@styled-icons/material-rounded/History";
 import { Settings } from "@styled-icons/evaicons-solid/Settings";
 import { ArrowBarLeft } from "@styled-icons/bootstrap/ArrowBarLeft";
 import { ArrowRight} from "@styled-icons/bootstrap/ArrowRight";
+import { ShoppingBasket} from "@styled-icons/entypo/ShoppingBasket";
 
 
 
@@ -20,7 +21,7 @@ import { ArrowRight} from "@styled-icons/bootstrap/ArrowRight";
 const Navbar = () => {
 
   const pathname = usePathname();
-  const [showNavbar, setShowNavbar] = useState(true);
+  const {showNavbar, setShowNavbar} = useNavabarstate();
   // 
   const handleClick = () => {
     setShowNavbar(!showNavbar);
@@ -36,17 +37,19 @@ const Navbar = () => {
         <div className={`relative flex flex-col bg-[#161616] w-72 h-screen `}> 
       {/* ${showNavbar ?'':'-translate-x-72 '} */}
         {/* four flex items */}
-        <div className=" -mb-16 mt-1">
-          <button onClick={handleClick} className="p-2  ml-2 mt-2 rounded-lg   w-10 hover:bg-[#50607D] "><ArrowBarLeft size={26} color="white"/></button>
-          <img
-            src="logo.png"
-            alt="logo of the company"
-            className="w-72 h-72  m-auto -mb-2"
-            />
+        <div className="-mb-12 mt-1">
+        <button onClick={handleClick} className=" relative p-2  ml-2 mt-2 rounded-lg z-2  w-10 hover:bg-[#50607D] "><ArrowBarLeft size={26} color="white"/></button>  
+        <img
+        
+        src="logo.png"
+        alt="logo of the company"
+        className=" w-50 h-50 m-auto -mt-16 "
+        />
+
         </div>
 
         <div className="flex flex-col mb-3 p-2  m-auto">
-            <Link href="/dashboard"className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
+            <Link href="/dashboard"className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/dashboard' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
               size={26}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
@@ -69,6 +72,14 @@ const Navbar = () => {
               style={{ marginRight: "4px" }}
             />{" "}
             Inventory
+          </Link>
+          <Link href="/manualorders" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/manualorders' ? 'bg-[#50607D]' : ''}`}>
+            <ShoppingBasket
+              size={26}
+              color="#B9B9B9"
+              style={{ marginRight: "4px" }}
+            />{"  "}
+            Take order M. 
           </Link>
           <Link href="/sales" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/sales' ? 'bg-[#50607D]' : ''}`}>
             <Analytics
@@ -111,7 +122,7 @@ const Navbar = () => {
         </div>
         
         <div className="flex flex-col mb-3 p-2  m-auto">
-            <Link href="/dashboard"className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
+            <Link href="/dashboard"className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/dashboard' ? 'bg-[#50607D]' : ''}`}>{" "}<Dashboard
               size={28}
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
@@ -131,6 +142,13 @@ const Navbar = () => {
               color="#B9B9B9"
               style={{ marginRight: "4px" }}
             />
+          </Link>
+          <Link href="/manualorders" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/manualorders' ? 'bg-[#50607D]' : ''}`}>
+            <ShoppingBasket
+              size={28}
+              color="#B9B9B9"
+              style={{ marginRight: "5px" }}
+              />
           </Link>
           <Link href="/sales" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/sales' ? 'bg-[#50607D]' : ''}`}>
             <Analytics
