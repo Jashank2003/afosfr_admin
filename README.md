@@ -1,5 +1,56 @@
 # PalatePrestige
 
+<br />
+<div align="center">
+  <!-- Next.js -->
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  
+  <!-- React -->
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
+  
+  <!-- Flutter -->
+  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
+  
+  <!-- Node.js -->
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  
+  <!-- JavaScript -->
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  
+  <!-- Dart -->
+  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
+  
+  <!-- MongoDB -->
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB" />
+  
+  <!-- NextAuth.js -->
+  <img src="https://img.shields.io/badge/NextAuth.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="NextAuth.js" />
+  
+  <!-- Firebase -->
+  <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white" alt="Firebase" />
+
+  <!-- WebSockets -->
+  <img src="https://img.shields.io/badge/WebSockets-4EA94B?style=for-the-badge&logo=websocket&logoColor=white" alt="WebSockets" />
+
+  <!-- Razorpay -->
+  <img src="https://img.shields.io/badge/Razorpay-02042B?style=for-the-badge&logo=razorpay&logoColor=white" alt="Razorpay" />
+  
+  <!-- Cloudinary -->
+  <img src="https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white" alt="Cloudinary" />
+
+  <!-- Redis -->
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis" />
+
+  <!-- Tailwind CSS -->
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+</div>
+
+<br />
+<br />
+<br />
+
+
+
 ![Screenshot 2024-05-14 213003](https://github.com/Jashank2003/afosfr_admin/assets/91665950/c65e0492-2634-42c0-bed4-bf62f784d35c)
 ![Screenshot 2024-05-15 083909](https://github.com/Jashank2003/afosfr_admin/assets/91665950/619fe545-8e23-4a09-93d7-71a2434d2528)
 ![Screenshot 2024-05-14 212839](https://github.com/Jashank2003/afosfr_admin/assets/91665950/e615872c-6b4b-44df-a7f0-ac69a808871f)
