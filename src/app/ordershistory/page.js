@@ -10,18 +10,34 @@ const page = () => {
   const[prevOrders,setPrevOrders] = useState([]);
   const [tableanimation ,settableanimation] = useState(true);
   const[query , setQuery] = useState("");
+  const[shopId, setShopId] = useState(null); // State to hold shop_id
 
-  useEffect(()=>{
+  useEffect(() => {
+    // Fetch shop_id once when the component mounts
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+    const shop_id = adminData?.shop_id;
 
-    const fetchOrders = async ()=>{
-      settableanimation(true);
-      const response = await fetch('/api/orders')
-      let rjson = await response.json();
-      setPrevOrders(rjson.allorders);
-      settableanimation(false);
+    if (!shop_id) {
+      alert("Shop ID not found");
+    } else {
+      setShopId(shop_id); // Store shop_id in state for reuse
     }
-    fetchOrders();
-  },[])
+  }, []);
+
+  useEffect(() => {
+    if (shopId) { // Ensure shopId is set
+      const fetchOrders = async () => {
+        settableanimation(true);
+        const response = await fetch(`/api/orders?shop_id=${shopId}`);
+        let rjson = await response.json();
+        console.log("rjson is here",rjson);
+        setPrevOrders(rjson.allOrders || []);
+        settableanimation(false);
+      };
+      fetchOrders();
+    }
+  }, [shopId]); // Trigger fetch only after shopId is set
+  
 
   const handleSearch = async(e)=>{
      let value = e.target.value
@@ -29,16 +45,16 @@ const page = () => {
     //  console.log(query);
     if(value.length>=3){
       settableanimation(true);
-      const response = await fetch('/api/searchistory?query=' + query)
+      const response = await fetch(`/api/searchistory?query=${query}&shop_id=${shopId}`)
       let rjson = await response.json();
-      setPrevOrders(rjson.searchedHistory);
+      setPrevOrders(rjson.searchedHistory || []);
       settableanimation(false);
       
     }
     else{
-      const response = await fetch('/api/orders')
+      const response = await fetch(`/api/orders?shop_id=${shopId}`)
       let rjson = await response.json();
-      setPrevOrders(rjson.allorders);
+      setPrevOrders(rjson.allOrders || []);
       settableanimation(false);
     }
   }
@@ -84,20 +100,29 @@ const page = () => {
             </tr>
           </thead>
 
-          <tbody >
-            {prevOrders?.map((prevOrder , index)=>{
-              const rowClass = index % 2 === 0 ? 'bg-[#535F57]' : 'bg-[#212623]';
-              return <tr key ={prevOrder.orderId} className={`${rowClass} p-4 text-md text-gray-300 mb-2`}>
-              <th className="border-b p-3">{prevOrder.name}</th>
-              <th className="border-b p-3">{prevOrder.contact}</th>
-              <th className="border-b p-3">Rs.{prevOrder.refId}</th>
-              <th className="border-b p-3"> {prevOrder.orderId} </th>
-              <th className="border-b p-3">{prevOrder.dailycount}</th>
-              <th className="border-b p-3">{prevOrder.amount}</th>
-              <th className="border-b p-3">{prevOrder.order}</th>
-            </tr>
-            })}
-          </tbody>
+          <tbody>
+  {prevOrders.length === 0 ? (
+    <tr>
+      <td colSpan="7" className="text-center text-gray-400">No orders found</td>
+    </tr>
+  ) : (
+    prevOrders.map((prevOrder, index) => {
+      const rowClass = index % 2 === 0 ? 'bg-[#535F57]' : 'bg-[#212623]';
+      return (
+        <tr key={prevOrder.orderId} className={`${rowClass} p-4 text-md text-gray-300 mb-2`}>
+          <td className="border-b p-3">{prevOrder.name}</td>
+          <td className="border-b p-3">{prevOrder.contact}</td>
+          <td className="border-b p-3">Rs.{prevOrder.refId}</td>
+          <td className="border-b p-3">{prevOrder.orderId}</td>
+          <td className="border-b p-3">{prevOrder.dailycount}</td>
+          <td className="border-b p-3">{prevOrder.amount}</td>
+          <td className="border-b p-3">{prevOrder.order}</td>
+        </tr>
+      );
+    })
+  )}
+</tbody>
+
         </table>
       </div>
 

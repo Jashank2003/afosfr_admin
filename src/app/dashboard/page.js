@@ -14,20 +14,31 @@ import {PersonMoney} from '@styled-icons/fluentui-system-filled/PersonMoney';
 
 const page = () => {
 
-  const { dailyOrderCount , resetDailyOrderCount , incrementDailyOrderCount,dailyRevenue, updateRevenue,resetDailyRevenue } = useOrderStore();
+  const { dailyOrderCount , resetDailyOrderCount ,incrementDailyOrderCount,
+    dailyRevenue, updateRevenue,resetDailyRevenue,
+    ordersServedToday, resetOrdersServedToday 
+  } = useOrderStore();
   const {resetLiveOrderList} = useLiveOrderList();
   const {clearReadyOrderList} = useReadyOrderList();
+  const [isHydrated , setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  },[]);
+
   const resetOrder = ()=>{
 
     confirm("Are You Sure you want to done for the day");
+    //TODO: Logic of saving data of the day for further analysis main comp . is dailyrevenue and orderse served today
 
     resetDailyOrderCount();
     resetDailyRevenue();
     resetLiveOrderList();
     clearReadyOrderList();
+    resetOrdersServedToday();
 
   }
-  const [publicId, setPublicId] = useState('');
+  // const [publicId, setPublicId] = useState('');
 
   return (
     <>
@@ -48,7 +59,7 @@ const page = () => {
           <PencilSquare size={42} className='mx-auto my-5 '/>
           <div>
             
-            <p className='mx-auto text-center text-2xl mb-4'> {dailyOrderCount} </p>
+            <p className='mx-auto text-center text-2xl mb-4'> {ordersServedToday} </p>
             <p className='text-center'> Orders serverd today </p>
           </div>
         </div>
@@ -69,7 +80,7 @@ const page = () => {
           <PencilSquare size={40} className='mx-auto my-5 '/>
           <div>
             
-            <p className='mx-auto text-center text-2xl mb-4'> {dailyOrderCount} </p>
+            <p className='mx-auto text-center text-2xl mb-4'> {resetOrdersServedToday} </p>
             <p className='text-center'> Orders serverd today </p>
           </div>
         </div>
@@ -80,7 +91,7 @@ const page = () => {
           <PencilSquare size={40} className='mx-auto my-5 '/>
           <div>
             
-            <p className='mx-auto text-center text-2xl mb-4'> {dailyOrderCount} </p>
+            <p className='mx-auto text-center text-2xl mb-4'> {resetOrdersServedToday} </p>
             <p className='text-center'> Orders serverd today </p>
           </div>
         </div>

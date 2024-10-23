@@ -18,24 +18,44 @@ const Manualorderitem = (props) => {
   
     return (
       <>
-         <div className=' flex flex-col justify-end align-middle w-48 h-[32vh] bg-[#161616] p-2 mx-4 my-2 rounded-xl'>
-         
-
-          <h1 className='text-md mx-auto text-center mb-2'>{foodname}</h1>
-          <img src={foodimg ? foodimg : '/noimage.png'} alt="loading food image"
-          className="w-20 h-20 mx-auto" />
-
-          
-
-            <p className='text-center text-xs mt-2 text-wrap  px-4'>{fooding}</p>
-            <p className='mx-auto text-center text-xl mt-3'> Price:{foodprice}/- </p>
-             
-            
-              <button  className={` text-black p-1 rounded-xl hover:bg-blue-200 duration-100 active:bg-green-400 ${isAdded ? 'animate-ping' : 'bg-blue-100'}`} onClick={handleClick}><CartCheckFill
-                size={16} color="black"/> Add </button>
+        <div className="relative flex flex-col justify-between align-middle w-48 h-[32vh] bg-[#161616] hover:bg-gray-800 p-1 mx-4 my-2 rounded-xl transition duration-300 ease-in-out transform hover:scale-105">
+          {/* Discount Badge (optional) */}
+          <div className="absolute top-2 left-2 bg-yellow-400 text-black text-xs rounded px-1">
+            20% Off
+          </div>
+    
+          {/* Food Image */}
+          <img
+            src={foodimg ? foodimg : '/noimage.png'}
+            alt="Food Image"
+            className="w-full h-28 object-cover rounded-t-lg"
+          />
+    
+          {/* Food Details */}
+          <div className="flex flex-col items-center">
+            <h1 className="text-md font-semibold text-white text-center mt-2">
+              {foodname}
+            </h1>
+            {/* <p className="text-xs text-gray-400 text-center px-2 mt-1">
+              {fooding}
+            </p> */}
+          </div>
+    
+          {/* Price and Add to Cart Button */}
+          <div className="flex justify-between items-center px-2 mt-1">
+            <p className="text-md text-green-400 font-bold">₹{foodprice}</p>
+            <p className="text-xs text-green-600 font-medium">Veg</p>
+          </div>
+    
+          <button
+            className={`text-black bg-gray-200 hover:bg-transparent hover:text-white hover:border hover:border-gray-400 p-1 w-full mt-2 rounded-lg font-medium transition-colors duration-300 ease-in-out ${isAdded ? 'animate-ping' : ''}`}
+            onClick={handleClick}
+          >
+            <CartCheckFill size={16} color="black" /> Add to Cart
+          </button>
         </div>
       </>
     );
-  };
-  
-  export default Manualorderitem;
+    
+};
+export default Manualorderitem

@@ -19,23 +19,35 @@ const page = () => {
   
   
   const [socket,setsocket] = useState(undefined)
- 
-    
-    useEffect(() => { 
-     const  socket = io('https://afosfr-server.onrender.com/'); 
-      setsocket(socket);
-  
-      socket.on("fetchOrder",(data)=>{
-        incrementDailyOrderCount();
-        updateRevenue(data.amount);
 
-         setOrders(data,dailyOrderCount+1);
-        //  console.log(orders);
-       })
-       return () => {
-        socket.off("fetchOrder"); // Cleanup socket event listener on component unmount
-      };
-    },[dailyOrderCount, incrementDailyOrderCount,dailyRevenue,updateRevenue, setOrders, readyOrders]);
+  const [isHydrated, setIsHydrated] = useState(false);
+ 
+    // socket handling in layout.js
+    // useEffect(() => { 
+    //  const  socket = io('https://afosfr-server.onrender.com/'); 
+    //   setsocket(socket);
+  
+    //   socket.on("fetchOrder",(data)=>{
+    //     incrementDailyOrderCount();
+    //     updateRevenue(data.amount);
+
+    //      setOrders(data,dailyOrderCount+1);
+    //     //  console.log(orders);
+    //    })
+    //    return () => {
+    //     socket.off("fetchOrder"); // Cleanup socket event listener on component unmount
+    //   };
+    // },[dailyOrderCount, incrementDailyOrderCount,dailyRevenue,updateRevenue, setOrders, readyOrders]);
+
+    useEffect(() => {
+      setIsHydrated(true);
+    },[]);
+
+    
+
+    if (!isHydrated) {
+      return <p className="text center text-white italic mt-20 mx-auto">Loading orders...</p>;
+    }
     
   return (
     <>
@@ -76,9 +88,9 @@ const page = () => {
     {/* orders completed here */}
     <div className='my-2 ml-4'> <hr /></div>
     <h1 className='mb-3 text-center text-lg  font-semibold tracking-wide text-white'>Orders Ready</h1>
-    <div className=' flex flex-row mx-4 my-4  h-[40vh] overflow-x-auto  scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-400 scrollbar-track-zinc-900 scrollbar-thin scrollbar-corner-zinc-300 '>
+    <div className=' flex flex-shrink-0 flex-row mx-4 my-4  h-[40vh] overflow-x-auto  overflow-y-hiddenscrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thumb-zinc-400 scrollbar-track-zinc-900 scrollbar-thin scrollbar-corner-zinc-300 '>
     
-   { readyOrders.map((order, index) => (
+   { readyOrders.length == 0 ? (<p className='text center text-white italic mt-20 mx-auto'>No new orders to display</p>) : readyOrders.map((order, index) => (
             <Ordereadycard
             key={index} // Assign a unique key for each Livecard
             orderId={order.orderId}

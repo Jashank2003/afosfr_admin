@@ -3,3 +3,68 @@
 @tailwind utilities;
 
 
+html {
+  scroll-behavior: smooth; /* Enables smooth scrolling */
+  
+}
+
+/* get started login css */
+@layer components {
+  .group:hover .scale-x-100 {
+    transform: scaleX(1);
+  }
+}
+
+
+/* 3D Image POS Features */
+
+/* globals.css */
+.perspective-3d {
+  perspective: 1000px;
+}
+
+.card-3d-left {
+  transform: rotateY(20deg);
+  transition: transform 0.8s ease-in-out;
+  transform-style: preserve-3d;
+  position: relative; /* For shadow positioning */
+  /* box-shadow: 0px 10px 30px rgba(255, 255, 0, 0.1); Subtle yellowish shadow around the card */
+}
+.card-3d-right {
+  transform: rotateY(-20deg);
+  transition: transform 0.8s ease-in-out;
+  transform-style: preserve-3d;
+  position: relative; /* For shadow positioning */
+  /* box-shadow: 0px 10px 30px rgba(255, 255, 0, 0.1); Subtle yellowish shadow around the card */
+}
+
+.card-3d-left:hover {
+  transform: rotateY(0);
+  scale: 1.1;
+  transition: ease-in-out 0.8s;
+  /* box-shadow: 0px 20px 40px rgba(255, 255, 0, 0.3);  */
+}
+.card-3d-right:hover {
+  transform: rotateY(0);
+  scale: 1.1;
+  transition: ease-in-out 0.8s;
+  /* box-shadow: 0px 20px 40px rgba(255, 255, 0, 0.3);  */
+}
+
+/* Circular shadow effect beneath the image */
+.image-shadow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 25px;
+  background: radial-gradient(circle, rgba(209, 209, 209, 0.4), transparent); 
+  filter: blur(8px); /* Make shadow softer and more diffused */
+  z-index: -1; /* Ensure shadow is behind the image */
+}
+
+/* Optional: Add a slightly lifted box shadow to the image itself */
+.shadow-image {
+  /* box-shadow: 0px 10px 30px rgba(255, 255, 0, 0.3); Yellow glow around the image */
+}

@@ -27,21 +27,37 @@ const page = () => {
   const[query , setQuery] = useState("");
   const[loading,setloading] = useState(false)
   const[loadingaction,setloadingaction] = useState(false)
-  const[dropdown,setDropdown] = useState([
-  
-])
+  const[dropdown,setDropdown] = useState([]);
+  const [shopId, setShopId] = useState(null); // State to hold shop_id
 
-  useEffect(()=>{
+  useEffect(() => {
+    // Fetch shop_id once when the component mounts
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+    const shop_id = adminData?.shop_id;
 
-    const fetchProducts = async ()=>{
+    if (!shop_id) {
+      alert("Shop ID not found");
+    } else {
+      setShopId(shop_id); // Store shop_id in state for reuse
+    }
+  }, []);
+
+
+useEffect(() => {
+  // Fetch food items when shop_id is available
+  if (shopId) {
+    const fetchProducts = async () => {
       settableanimation(true);
-      const response = await fetch('/api/product')
+      const response = await fetch(`/api/product?shop_id=${shopId}`);
+      console.log("response from foodstock page", response); // Pass shop_id in the query
       let rjson = await response.json();
       setProducts(rjson.products);
       settableanimation(false);
-    }
+    };
     fetchProducts();
-  },[])
+  }
+}, [shopId]);
+
 
   
   const handleaddbut = ()=>{
@@ -64,6 +80,13 @@ const page = () => {
 
     try{
 
+     
+  
+      if (!shopId) {
+        setAlert("Shop ID not found");
+        return;
+      }
+
       const imageUrl = getCldImageUrl({
         width: 960,
         height: 600,
@@ -75,7 +98,7 @@ const page = () => {
             headers:{
                 'content-type':'application/json'
             },                                                                     
-            body:JSON.stringify({...productForm,avlb:productForm.avlb ? 'yes':'no',foodimg:imageUrl })
+            body:JSON.stringify({...productForm,avlb:productForm.avlb ? 'yes':'no',foodimg:imageUrl,shop_id:shopId })
         });
 
         if(response.ok){
@@ -111,7 +134,13 @@ const page = () => {
       if(value.length>=3){
         setloading(true);
         setDropdown([])
-        const response = await fetch('/api/search?query=' + query)
+        
+        if (!shopId) {
+          console.error('Shop ID not found');
+          settableanimation(false);
+          return;
+        }
+        const response = await fetch(`/api/search?query=${value}&shop_id=${shopId}`);
         let rjson = await response.json();
         setDropdown(rjson.products);
         setloading(false);
@@ -149,7 +178,7 @@ const page = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ productName: productName, avlb: newAvailability ? 'yes' : 'no' })
+            body: JSON.stringify({ productName: productName, avlb: newAvailability ? 'yes' : 'no',shop_id:shopId })
         });
 
         if (response.ok) {
@@ -189,7 +218,7 @@ const deleteItem = async(foodname)=>{
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({foodname}),
+    body: JSON.stringify({foodname,shop_id:shopId}),
   });
   let r = await response.json();
   console.log(r);

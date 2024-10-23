@@ -41,9 +41,9 @@ const Navbar = () => {
         <button onClick={handleClick} className=" relative p-2  ml-2 mt-2 rounded-lg z-2  w-10 hover:bg-[#50607D] "><ArrowBarLeft size={26} color="white"/></button>  
         <img
         
-        src="logo.png"
+        src="/ppbgr.png"
         alt="logo of the company"
-        className=" w-50 h-50 m-auto -mt-16 "
+        className=" w-40 h-30 m-auto  mb-8 p-2 "
         />
 
         </div>
@@ -89,7 +89,7 @@ const Navbar = () => {
               />{" "}
             Analytics
           </Link>
-          <Link href="/ordershistory" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/ordershistory" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/ordershistory' ? 'bg-[#50607D]' : ''}`}>
             <History size={26} color="#B9B9B9" style={{ marginRight: "5px" }} />{" "}
             History
           </Link>
@@ -100,7 +100,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col mb-12 p-2  m-auto">
-          <Link href="#" className={`text-white font-semibold  p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/#' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/userprofile" className={`text-white font-semibold  p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/userprofile' ? 'bg-[#50607D]' : ''}`}>
             <Settings
               size={26}
               color="#B9B9B9"
@@ -157,7 +157,7 @@ const Navbar = () => {
               style={{ marginRight: "5px" }}
               />
           </Link>
-          <Link href="#" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/ordershistory" className={`text-white font-semibold my-3 p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '#' ? 'bg-[#50607D]' : ''}`}>
             <History size={28} color="#B9B9B9" style={{ marginRight: "5px" }} />
           </Link>
         </div>
@@ -167,7 +167,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col mb-12 p-2  m-auto">
-          <Link href="#" className={`text-white font-semibold  p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/#' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/userprofile" className={`text-white font-semibold  p-1.5 w-10 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/#' ? 'bg-[#50607D]' : ''}`}>
             <Settings
               size={28}
               color="#B9B9B9"

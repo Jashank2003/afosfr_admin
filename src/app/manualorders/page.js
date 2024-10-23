@@ -16,7 +16,7 @@ const page = () => {
 
   const {cartorders,updateQuantity ,getTotalAmount ,resetcartorders } = useCartValue();
   const {setOrders} = useLiveOrderList();
-  const { dailyOrderCount , incrementDailyOrderCount,dailyRevenue,updateRevenue } = useOrderStore();
+  const { dailyOrderCount , incrementDailyOrderCount } = useOrderStore();
 
   const[fooditems,setFooditems] = useState([]);
   const [tableanimation ,settableanimation] = useState(true);
@@ -24,18 +24,33 @@ const page = () => {
 
   const [custname, setCustname] = useState("");
   const [custmob, setCustmob] = useState("");
+  const [shopId, setShopId] = useState(null); // State to hold shop_id
 
-  useEffect(()=>{
+  useEffect(() => {
+    // Fetch shop_id once when the component mounts
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+    const shop_id = adminData?.shop_id;
 
-    const fetchItems = async ()=>{
-      settableanimation(true);
-      const response = await fetch('/api/product')
-      let rjson = await response.json();
-      setFooditems(rjson.products);
-      settableanimation(false);
+    if (!shop_id) {
+      alert("Shop ID not found");
+    } else {
+      setShopId(shop_id); // Store shop_id in state for reuse
     }
-    fetchItems();
-  },[])
+  }, []);
+
+  useEffect(() => {
+    // Fetch food items when shop_id is available
+    if (shopId) {
+      const fetchItems = async () => {
+        settableanimation(true);
+        const response = await fetch(`/api/product?shop_id=${shopId}`);
+        let rjson = await response.json();
+        setFooditems(rjson.products);
+        settableanimation(false);
+      };
+      fetchItems();
+    }
+  }, [shopId]);
 
   const handleIncrement = (index) => {
     updateQuantity(index, cartorders[index].quantity + 1);
@@ -75,11 +90,12 @@ const page = () => {
       contact: custmob,
       orders:cartorders,
       amount: totalAmount,
+      shop_id:shopId
     };
 
     // console.log(data);
     incrementDailyOrderCount();
-    updateRevenue(data.amount);
+    // updateRevenue(data.amount);
 
     setOrders(data,dailyOrderCount+1);
     resetcartorders();
@@ -101,7 +117,7 @@ const page = () => {
    //  console.log(query);
    if(value.length>=3){
      settableanimation(true);
-     const response = await fetch('/api/search?query=' + query)
+     const response = await fetch(`/api/search?query=${query}&shop_id=${shopId}`)
      let rjson = await response.json();
      setFooditems(rjson.products);
      settableanimation(false);
@@ -109,7 +125,7 @@ const page = () => {
    }
    else{
      settableanimation(true);
-     const response = await fetch('/api/product')
+     const response = await fetch(`/api/product?shop_id=${shopId}`);
      let rjson = await response.json();
      setFooditems(rjson.products);
      settableanimation(false);

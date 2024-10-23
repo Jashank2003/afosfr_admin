@@ -1,11 +1,27 @@
 "use client";
 import React from "react";
-import {useState} from 'react';
+import {useState ,useEffect} from 'react';
+import {io} from 'socket.io-client';
+
 import {IndianRupeeSign} from '@styled-icons/fa-solid/IndianRupeeSign'
 import useLiveOrderList from '../../../contexts/liveOrderList'
 import useReadyOrderList from '../../../contexts/readyOrderList';
+import useOrderStore from '../../../contexts/orderStore';
 
 const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) => {
+
+  const [shopId,setShopId] = useState(null);
+  const {updateRevenue,incrementOrdersServedToday} = useOrderStore();
+
+  useEffect(()=>{
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+    const shop_id = adminData?.shop_id;
+    setShopId(shop_id);
+
+    if(!shop_id){
+      alert("Shop ID not found");
+    }
+  },[]);
 
   const {readyOrderOf} = useLiveOrderList();
   const { readyOrders, addReadyOrder } = useReadyOrderList();
@@ -13,49 +29,51 @@ const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) =>
 
   const handleReady = async () => {
     setLoading(true);
+  
+    // Update UI and localStorage first
+    const data = {
+      orderId,
+      refId,
+      name,
+      contact,
+      order,
+      amount,
+      dailycount,
+      shop_id:shopId
+    };
+  
+    readyOrderOf(orderId); // Remove order from live list
+    addReadyOrder(data); // Add order to ready list
+    console.log(readyOrders); // Log ready orders
+     updateRevenue(data.amount);
+     incrementOrdersServedToday();
+
+
+     // send message to the server and flutter
+     const socket = io('https://afosfr-server.onrender.com/');
+     socket.emit('orderComplete', orderId);
+     
+  
+    // Now, perform the API call in the background (this can happen after UI updates)
     try {
-        // Make a POST request to your API endpoint
-        const response = await fetch('/api/orders', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                orderId,
-                refId,
-                name,
-                contact,
-                order,
-                amount,
-                dailycount
-            }),
-        });
-
-        // If the request is successful, call readyOrderOf to remove the order from the list
-        if (response.ok) {
-            readyOrderOf(orderId);
-
-            const data = {
-              orderId,
-              refId,
-              name,
-              contact,
-              order,
-              amount,
-              dailycount
-          };
-
-
-          addReadyOrder(data);
-          console.log(readyOrders);
-        } else {
-            console.error('Failed to insert order into database');
-        }
+      const response = await fetch('/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        console.error('Failed to insert order into database');
+      }
     } catch (error) {
-        console.error('Error while making POST request:', error);
+      console.error('Error while making POST request:', error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-};
+  };
+  
 
  const handleDecline = ()=>{
     setLoading(true);
@@ -73,7 +91,7 @@ const Livecard = ({ orderId,refId, name,contact, order, amount ,dailycount }) =>
     #{orderId}
     </h1>
     <h2 className="text-lg font-semibold text-white text-center my-1 mb-2">{name}</h2> 
-    <div className="bg-black p-0.5 rounded shadow ">
+    <div className="bg-black p-0.5 rounded shadow  overflow-y-auto scrollbar-thin">
         <h2 className="text-lg  mb-1 text-gray-100 text-center">Items</h2>
         <div className="border-t border-white w-full h-1 hover:border-gray-300"></div>
         <div className="h-[12vh]">

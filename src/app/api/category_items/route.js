@@ -1,23 +1,36 @@
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
- import cloudinary from '../utils/cloudinary'
 
-export async function GET(request){
-
-    const uri=  process.env.DATABASE_URL;
+export async function POST(request) {
+    const uri = process.env.DATABASE_URL;
     const client = new MongoClient(uri);
-    const url = new URL(request.url);
-    const params = new URLSearchParams(url.search);
-    const category = params.get("category");
-    console.log(category)
+
     try {
-        const database =  client.db('afosfr');
+        const database = client.db('afosfr');
         const inventory = database.collection('inventory');
-        let query = {};
+
+        const body = await request.json(); // Parse the incoming POST request body
+        const { shop_id, category } = body; // Extract shop_id and optional category from the request
+
+        if (!shop_id) {
+            return NextResponse.json({
+                success: false,
+                message: "shop_id is required"
+            }, {
+                status: 400,
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'POST',
+                    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+                },
+            });
+        }
+
+        let query = { shop_id }; // Filter by shop_id
 
         if (category) {
-            // If category is defined in the request, filter by category
-            query = { category: category };
+            // If category is provided, include it in the query
+            query.category = category;
         }
 
         const products = await inventory.find(query).toArray();
@@ -36,6 +49,13 @@ export async function GET(request){
             items: items
         }));
 
+        if(categoriesAndItems.length ==0){
+            return NextResponse.json({
+                success: false,
+                message: "Shop_id is invalid or items does not exists of that shop_id"
+            })
+        }
+        
         return NextResponse.json({
             success: true,
             data: {
@@ -45,7 +65,7 @@ export async function GET(request){
             status: 200,
             headers: {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET',
+                'Access-Control-Allow-Methods': 'POST',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             },
         });
@@ -53,4 +73,3 @@ export async function GET(request){
         await client.close();
     }
 }
-
