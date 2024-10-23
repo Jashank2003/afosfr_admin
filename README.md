@@ -52,8 +52,8 @@
 
 ![Screenshot 2024-10-23 220632](https://github.com/user-attachments/assets/68daec9c-304d-4539-a2cc-9ad157edbdfd)
 <br/>
-![Screenshot 2024-05-14 213003](https://github.com/Jashank2003/afosfr_admin/assets/91665950/c65e0492-2634-42c0-bed4-bf62f784d35c)
-<br/>
+
+
 ![Screenshot 2024-10-22 015151](https://github.com/user-attachments/assets/30746881-2c12-4201-9160-f93a8957f9dc)
 <br/>
 ![Screenshot 2024-05-14 212839](https://github.com/Jashank2003/afosfr_admin/assets/91665950/e615872c-6b4b-44df-a7f0-ac69a808871f)
