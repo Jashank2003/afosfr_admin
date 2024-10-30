@@ -85,7 +85,7 @@ const page = () => {
           
 
          {/* Display Previous orderes here */}
-        <div className={`p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':''}`}>
+        <div className={`p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':'bg-transparent'}`}>
         {/* <h1 className=" text-lg font-semibold mb-4">Display Food Menu </h1> */}
         <table className="w-full border">
           <thead>
@@ -107,16 +107,16 @@ const page = () => {
     </tr>
   ) : (
     prevOrders.map((prevOrder, index) => {
-      const rowClass = index % 2 === 0 ? 'bg-[#535F57]' : 'bg-[#212623]';
+      const rowClass = index % 2 === 0 ? 'bg-gradient-to-l from-[#0000] to-[#0B192C]' : 'bg-gradient-to-l from-[#0000] to-[#0B192C]';
       return (
         <tr key={prevOrder.orderId} className={`${rowClass} p-4 text-md text-gray-300 mb-2`}>
-          <td className="border-b p-3">{prevOrder.name}</td>
-          <td className="border-b p-3">{prevOrder.contact}</td>
-          <td className="border-b p-3">Rs.{prevOrder.refId}</td>
-          <td className="border-b p-3">{prevOrder.orderId}</td>
-          <td className="border-b p-3">{prevOrder.dailycount}</td>
-          <td className="border-b p-3">{prevOrder.amount}</td>
-          <td className="border-b p-3">{prevOrder.order}</td>
+          <td className=" p-4">{prevOrder.name}</td>
+          <td className=" p-4">{prevOrder.contact}</td>
+          <td className=" p-4">Rs.{prevOrder.refId}</td>
+          <td className=" p-4">{prevOrder.orderId}</td>
+          <td className=" p-4">{prevOrder.dailycount}</td>
+          <td className=" p-4">{prevOrder.amount}</td>
+          <td className=" p-4">{prevOrder.order}</td>
         </tr>
       );
     })

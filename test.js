@@ -17,9 +17,9 @@ export const options = {
     shop_id: 'haveagreatstart',
   }
   export default function () {
-    // http.post('http://localhost:3000/api/category_items', JSON.stringify(data), {
-    //     headers: { 'Content-Type': 'application/json' },
-    //   });
-    http.get('http://localhost:3000/api/product?shop_id=haveagreatstart');
+    http.post('http://localhost:3000/api/category_items', JSON.stringify(data), {
+        headers: { 'Content-Type': 'application/json' },
+      });
+    // http.get('http://localhost:3000/api/product?shop_id=haveagreatstart');
     sleep(1);
   }

@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import {useState,useEffect} from 'react'
+import {useState,useEffect, useRef} from 'react'
 import Link from 'next/link';
 import { getCldImageUrl } from 'next-cloudinary';
 import { CldUploadWidget } from 'next-cloudinary';
@@ -9,6 +9,7 @@ import { Delete} from "@styled-icons/fluentui-system-filled/Delete";
 import { Search} from "@styled-icons/evil/Search";
 import { CartPlusFill} from "@styled-icons/bootstrap/CartPlusFill";
 import { CloseOutline} from "@styled-icons/evaicons-outline/CloseOutline";
+import {FilterAlt} from "@styled-icons/material-outlined/FilterAlt"
 
 
 
@@ -29,6 +30,13 @@ const page = () => {
   const[loadingaction,setloadingaction] = useState(false)
   const[dropdown,setDropdown] = useState([]);
   const [shopId, setShopId] = useState(null); // State to hold shop_id
+
+  // categories filter 
+  const [categories, setCategories] = useState(['All']);
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [showCategoriesDropdown, setShowCategoriesDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
 
   useEffect(() => {
     // Fetch shop_id once when the component mounts
@@ -59,6 +67,23 @@ useEffect(() => {
 }, [shopId]);
 
 
+useEffect(() => {
+  const fetchCategories = async () => {
+      if (shopId) {
+          const response = await fetch(`/api/getdiscategory?shop_id=${shopId}`);
+          const rjson = await response.json();
+          if (rjson.success) {          
+              setCategories((prevCategories) => [
+                  ...prevCategories,   
+                  ...rjson.categories,  
+              ]);
+          } else {
+              console.error("Error fetching categories:", rjson.error);
+          }
+      }
+  };
+  fetchCategories();
+}, [shopId]);
   
   const handleaddbut = ()=>{
     setshowadd(true);
@@ -66,6 +91,27 @@ useEffect(() => {
   const handleaddclose = ()=>{
     setshowadd(false);
   }
+
+  const handleCategoryFilter = async (category) => {
+
+    setSelectedCategory(category);
+    setShowCategoriesDropdown(false); // Close the dropdown
+    settableanimation(true);
+    try {
+        let response;
+        if(category === "All")
+        response = await fetch(`/api/product?shop_id=${shopId}`);
+        else
+        response = await fetch(`/api/product?shop_id=${shopId}&category=${category}`);
+
+        let rjson = await response.json();
+        setProducts(rjson.products);
+    }
+     catch (error) {
+        console.error('Error fetching category items:', error);
+    }
+    settableanimation(false);
+};
 
   const addProduct = async(e)=>{
     e.preventDefault();
@@ -75,13 +121,10 @@ useEffect(() => {
       setTimeout(() => {
         setAlert("");
     }, 2000);
-      return; // Exit the function if any required field is empty
+      return; 
     }
 
     try{
-
-     
-  
       if (!shopId) {
         setAlert("Shop ID not found");
         return;
@@ -320,9 +363,25 @@ const deleteItem = async(foodname)=>{
       </div>
       )}
 
+      {/* Filters  */}
+      <div className=' flex flex-row '>
+
+      <button className='bg-[#161616] text-gray-400 hover:bg-[#161620] duration-75 rounded-2xl mt-3 text-small h-10 px-3' onClick={() => setShowCategoriesDropdown(!showCategoriesDropdown)}>
+                <FilterAlt size={18} color='gray' /> filters
+            </button>
+
+            {/* Dropdown for Categories */}
+            {showCategoriesDropdown && (
+                <div ref={dropdownRef} className="absolute bg-white z-10 shadow-lg rounded-md mt-1">
+                    {categories.map((category, index) => (
+                        <div key={index} className="px-4 py-2 cursor-pointer hover:bg-gray-200" onClick={() => handleCategoryFilter(category)}>
+                            {category}
+                        </div>
+                    ))}
+                </div>
+            )}
 
       {/* Search  system here  */}
-
       <div className="w-[12vw] h-12 mt-2 shadow-sm m-2 " >
 
         <div className="flex ">
@@ -375,8 +434,9 @@ const deleteItem = async(foodname)=>{
 
          </div>
 
+          </div>
       {/* Display foood meny  */}
-      <div className={`p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':''}`}>
+      <div className={`p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':'bg-transparent'}`}>
         {/* <h1 className=" text-lg font-semibold mb-4">Display Food Menu </h1> */}
         <table className="w-full border">
           <thead>
@@ -392,16 +452,16 @@ const deleteItem = async(foodname)=>{
 
           <tbody >
             {products.map((product , index)=>{
-              const rowClass = index % 2 === 0 ? 'bg-[#535F57]' : 'bg-[#212623]';
+              const rowClass = index % 2 === 0 ? 'bg-gradient-to-r from-[#0000] to-[#0B192C]' : 'bg-gradient-to-r from-[#0000] to-[#0B192C]';
               return <tr key ={product.foodname} className={`${rowClass} p-4 text-md text-gray-300 mb-2`}>
-              <th className="border-b p-3">{product.foodname}</th>
-              <th className="border-b p-3">{product.category}</th>
-              <th className="border-b p-3">Rs.{product.price}</th>
-              <th className={`border-b p-3 ${product.avlb === 'no' ? 'bg-red-200' : ''}`}>
+              <th className="">{product.foodname}</th>
+              <th className="">{product.category}</th>
+              <th className="">Rs.{product.price}</th>
+              <th className={` ${product.avlb === 'no' ? 'bg-red-200' : ''}`}>
           {product.avlb}
         </th>
-              <th className="border-b p-3">{product.fooding}</th>
-              <th className="border-b  p-3 underline"> <Link target='_blank' href={!product.foodimg? '#':product.foodimg}>
+              <th className="">{product.fooding}</th>
+              <th className="  p-3 underline"> <Link target='_blank' href={!product.foodimg? '#':product.foodimg}>
         view
       </Link></th>
             </tr>

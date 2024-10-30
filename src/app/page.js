@@ -14,6 +14,7 @@ import  useAdminDataStore  from '../../contexts/adminDataStore';
 import {NotStarted} from '@styled-icons/material-sharp/NotStarted'
 import { Londrina_Sketch, Kranky ,Rubik } from "next/font/google";
 import Contactui from './components/Contactui';
+import Loaderui from './components/Loaderui';
 
 const kranky = Kranky({ subsets: ["latin"] ,weight: "400" });
 const rubik = Rubik({ subsets: ["latin"] ,weight: "400" });
@@ -124,6 +125,13 @@ function HomePage() {
   return (
     <>
       {/* Navbar Section */}
+      {Loading ? (
+      <div className="fixed inset-0 flex flex-col items-center justify-center z-30 bg-black bg-opacity-50 cursor-not-allowed">
+        <Loaderui />
+        <p className="mt-4 text-gray-500 text-lg font-semibold">Wait a moment...</p>
+      </div>
+    ) : null}
+
       <nav className={`${rubik.className} overflow-hidden hide-scrollbar fixed top- left-0 right-0 z-20 transition-transform duration-300 ${isNavbarVisible ? 'translate-y-4' : '-translate-y-full'} bg-black bg-transparent flex items-center justify-between px-6 py-4`}>
        
         <div className={`${kranky.className} text-white font-extrabold text-2xl ml-5`}>
