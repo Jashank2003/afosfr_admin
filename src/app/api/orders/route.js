@@ -142,6 +142,7 @@ export async function GET(request) {
     } catch (error) {
         return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     } finally {
+        redis.quit();
         await client.close(); // Ensure the client is closed after operations
     }
 }
@@ -169,6 +170,7 @@ export async function POST(request) {
     } catch (error) {
         return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
     } finally {
+        redis.quit();
         await client.close();
     }
 }

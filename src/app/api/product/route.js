@@ -126,6 +126,7 @@ export async function GET(request) {
             },
         });
     } finally {
+        redis.quit();
         await client.close();
     }
 }
@@ -169,6 +170,7 @@ export async function POST(request) {
             },
         });
     } finally {
+        redis.quit();
         await client.close();
     }
 }

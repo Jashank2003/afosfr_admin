@@ -76,7 +76,6 @@
 
 import { MongoClient } from "mongodb";
 import { NextResponse } from "next/server";
-// import redis from '../utils/redisClient';
 import {getRedisClient} from '../utils/redisClient';
 
 export async function POST(request) {
@@ -172,6 +171,7 @@ export async function POST(request) {
             },
         });
     } finally {
+        redis.quit();
         await client.close();
     }
 }
