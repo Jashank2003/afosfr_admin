@@ -35,7 +35,7 @@ const Navbar = () => {
 
       {showNavbar && (
         <div className={`relative flex flex-col bg-[#161616] w-72 h-screen `}> 
-      {/* ${showNavbar ?'':'-translate-x-72 '} */}
+     
         {/* four flex items */}
         <div className="-mb-12 mt-1">
         <button onClick={handleClick} className=" relative p-2  ml-2 mt-2 rounded-lg z-2  w-10 hover:bg-[#50607D] "><ArrowBarLeft size={26} color="white"/></button>  

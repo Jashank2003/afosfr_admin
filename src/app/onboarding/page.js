@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import { useSession } from "next-auth/react";
+import { useSession ,signOut} from "next-auth/react";
 import { useRouter } from "next/navigation";
+import {Link} from "next/link";
 import  useAdminDataStore  from '../../../contexts/adminDataStore';
+import CryptoJS from 'crypto-js';
 
 const Page = () => {
     const { data: session } = useSession();
@@ -22,6 +24,8 @@ const Page = () => {
     sub_end: "",
     shop_id: "",
     email: session?.user.email || "",
+    apikey:"",
+    apisecret:"",
   });
 
   useEffect (() => {
@@ -30,11 +34,30 @@ const Page = () => {
     }
 },[session])
 
+  const handlebacktohomepage = async ()=>{
+        await signOut({
+          redirect: true,  // Ensure redirect happens after sign out
+          callbackUrl: '/',  // Redirect user to homepage after logout
+        });
+
+  }
+
+//   function encryptData(data, secret) {
+//     const iv = cryptoJS.enc.Hex.parse('00000000000000000000000000000000'); // 16-byte IV
+//     const encrypted = cryptoJS.AES.encrypt(data, cryptoJS.enc.Utf8.parse(secret), {
+//         iv: iv,
+//         mode: cryptoJS.mode.CBC,
+//         padding: cryptoJS.pad.Pkcs7
+//     });
+
+//     return encrypted.toString();
+// }
+
   const handlePayment =  async () => {
     // Validate input fields except shop_id
-    const { admin_name, contact, password, shop_name, sub_end, email } = formData;
+    const { admin_name, contact, password, shop_name, sub_end, email,apikey,apisecret } = formData;
   
-    if (!admin_name || !contact || !password || !shop_name || !sub_end || !email) {
+    if (!admin_name || !contact || !password || !shop_name || !sub_end || !email || !apikey || !apisecret) {
       alert("All fields must be filled out!");
       return;
     }
@@ -54,7 +77,12 @@ const Page = () => {
       alert("Shop name must be at least 3 characters long");
       return;
     }
- 
+    if(apikey.length < 3) {
+      alert("API Key must be at least 3 characters long");  return;}
+    if(apisecret.length < 3){
+      apikey("API Secret must be at least 3 characters long"); return;  
+    }
+    //! system to check weather api keys are correct
 
     const passKey = prompt("Enter The Pass Key To Continue");
     if(passKey !== process.env.NEXT_PUBLIC_ON_BOARD_KEY) {
@@ -71,15 +99,25 @@ const Page = () => {
     const generate_shop_id = `${datePart}${last4Digits}${sanitizedShopName}${uniqueChar}`;
     console.log("my shop id is",generate_shop_id);
 
+   
+    // encrypt api key and apisecret key
+   
+    // const encryptedApiKey = encryptData(apikey,process.env.NEXT_PUBLIC_SECRET_KEY_CF);
+    // const encryptedApiSecret = encryptData(apisecret,process.env.NEXT_PUBLIC_SECRET_KEY_CF);
+   
     // Set the shop_id in formData
     setFormData((prevFormData) => ({
       ...prevFormData,
       shop_id: generate_shop_id,
+      // apikey: encryptedApiKey,
+      // apisecret: encryptedApiSecret,
     }));
 
     const newFormData = {
       ...formData,
       shop_id: generate_shop_id,
+      // apikey: encryptedApiKey,
+      // apisecret: encryptedApiSecret
     };
   
     // Call the API to save data
@@ -159,7 +197,7 @@ const handlePlanSelect = (plan) => {
         tiltMaxAngleY={1}
         perspective={1500}
         transitionSpeed={2000}
-        scale={1.1}
+        // scale={1.1}
         glareEnable={true}
         glareMaxOpacity={0.15}
         glareColor="#243B55"
@@ -183,6 +221,8 @@ const handlePlanSelect = (plan) => {
               Join us in simplifying food management. Set up your admin account,
               subscribe, and manage your restaurant with ease!
             </p>
+            <button className="text-blue-500 mt-5 underline" onClick={handlebacktohomepage}>back to main page</button>
+         
           </motion.div>
         </div>
 
@@ -195,7 +235,7 @@ const handlePlanSelect = (plan) => {
           >
             {/* Timeline - Circular Numbers without Vertical Lines */}
             <div className="flex justify-center mt-4 mb-2 relative items-center space-x-6">
-              {Array.from({ length: 5 }, (_, index) => (
+              {Array.from({ length: 6 }, (_, index) => (
                 <div key={index} className="flex flex-col items-center z-10">
                   <div
                     className={`h-12 w-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
@@ -226,7 +266,7 @@ const handlePlanSelect = (plan) => {
                 className="flex flex-col items-center"
               >
                 <p className="text-[#fdfdfd] font-bold font-mono text-2xl mt-10 mb-6 text-center">
-                  Hi {formData.admin_name}, let's proceed with some essential information for you!
+                  Hi {formData.admin_name}, let's proceed with taking some essential information!
                 </p>
               </motion.div>
             )}
@@ -244,10 +284,13 @@ const handlePlanSelect = (plan) => {
                   {step === 2 && "Enter Your Contact Number"}
                   {step === 3 && "Set The Password"}
                   {step === 4 && "What’s Your Shop’s Title? 🤔"}
-                  {step === 5 && "Let’s go! Almost There :)"}
+                  {step === 5 && "Your CashFree details:) 🤑"}
+                  {step === 6 && "Almost There :)"}
                 </p>
 
                 {step === 2 && (
+                  
+
                   <input
                     type="text"
                     name="contact"
@@ -258,6 +301,7 @@ const handlePlanSelect = (plan) => {
                     placeholder="Enter admin contact"
                     className="p-3 mt-40 w-[80%] text-white text-lg bg-transparent border-b-2 border-[#ECDFCC] mb-4 focus:outline-none placeholder-[#ffffff] transition-colors text-center"
                   />
+               
                 )}
                 {step === 3 && (
                   <input
@@ -283,7 +327,34 @@ const handlePlanSelect = (plan) => {
                     className="p-3 mt-40 w-[80%] text-white text-lg bg-transparent border-b-2 border-[#ECDFCC] mb-4 focus:outline-none placeholder-[#ffffff] transition-colors text-center"
                   />
                 )}
+
                 {step === 5 && (
+                  <div classname="flex flex-col justify-center align-center"> 
+                     {/* <span> if you dont have cashfree yet then create account there <Link href="https://www.cashfree.com/" className="text-[#ECDFCC]">Cashfree</Link></span> */}
+
+                  <input
+                    type="text"
+                    name="apikey"
+                    value={formData.apikey}
+                    onChange={handleInputChange}
+                    minLength={4}
+                    // maxLength={20}
+                    placeholder="cashfree Api key"
+                    className="p-3 mt-20 w-[80%] text-white  text-lg bg-transparent border-b-2 border-[#ECDFCC] mb-4 ml-10 focus:outline-none placeholder-[#ffffff] transition-colors text-center"
+                  />
+                  <input
+                  type="text"
+                  name="apisecret"
+                  value={formData.apisecret}
+                  onChange={handleInputChange}
+                  minLength={4}
+                  // maxLength={20}
+                  placeholder="cashfree Api secret"
+                  className="p-3  w-[80%] text-white text-lg bg-transparent border-b-2 border-[#ECDFCC] mb-4 ml-10 focus:outline-none placeholder-[#ffffff] transition-colors text-center"
+                  />
+                  </div>
+                )}
+                {step === 6 && (
                 <div className="flex flex-col items-center mt-28 mb-4">
                     <p className="text-xl font-bold text-[#ECDFCC] mb-4">
                     Choose Your Subscription Plan
@@ -343,7 +414,7 @@ const handlePlanSelect = (plan) => {
 
             {/* Navigation Buttons */}
             <div className="absolute -bottom-40 w-full flex justify-between px-8 ">
-              {step > 1 && step<5 && (
+              {step > 1 && step<6 && (
                 <button
                   onClick={handlePrevStep}
                   className="flex items-center justify-center bg-black p-2 rounded-md text-white hover:bg-[#2f2f2f] transition-colors transform hover:scale-105"
@@ -352,7 +423,7 @@ const handlePlanSelect = (plan) => {
                   Previous
                 </button>
               )}
-              {step < 5 && (
+              {step < 6 && (
                 <button
                   onClick={handleNextStep}
                   className="flex items-center justify-center bg-black p-2 px-4 rounded-md text-white hover:bg-[#6d6d6d26] hover:border  transition-colors transform hover:scale-105 duration-150"

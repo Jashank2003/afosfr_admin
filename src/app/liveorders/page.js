@@ -22,23 +22,6 @@ const page = () => {
 
   const [isHydrated, setIsHydrated] = useState(false);
  
-    // socket handling in layout.js
-    // useEffect(() => { 
-    //  const  socket = io('https://afosfr-server.onrender.com/'); 
-    //   setsocket(socket);
-  
-    //   socket.on("fetchOrder",(data)=>{
-    //     incrementDailyOrderCount();
-    //     updateRevenue(data.amount);
-
-    //      setOrders(data,dailyOrderCount+1);
-    //     //  console.log(orders);
-    //    })
-    //    return () => {
-    //     socket.off("fetchOrder"); // Cleanup socket event listener on component unmount
-    //   };
-    // },[dailyOrderCount, incrementDailyOrderCount,dailyRevenue,updateRevenue, setOrders, readyOrders]);
-
     useEffect(() => {
       setIsHydrated(true);
     },[]);
