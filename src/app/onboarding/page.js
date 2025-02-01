@@ -8,14 +8,14 @@ import { useRouter } from "next/navigation";
 import {Link} from "next/link";
 import  useAdminDataStore  from '../../../contexts/adminDataStore';
 import CryptoJS from 'crypto-js';
-
+import Loaderui from '../components/Loaderui'
 const Page = () => {
     const { data: session } = useSession();
     const router = useRouter();
     const {setAdminDataFromLocalStorage} = useAdminDataStore();
     const [step, setStep] = useState(1);
     const [selectedPlan, setSelectedPlan] = useState(""); // State for selected subscription plan
-
+    const [loader,setLoader]= useState(false);
   const [formData, setFormData] = useState({
     admin_name: session?.user?.name || "noname",
     contact: "",
@@ -26,6 +26,7 @@ const Page = () => {
     email: session?.user.email || "",
     apikey:"",
     apisecret:"",
+    tutorialDone: "notdone",
   });
 
   useEffect (() => {
@@ -55,37 +56,46 @@ const Page = () => {
 
   const handlePayment =  async () => {
     // Validate input fields except shop_id
+    setLoader(true);
     const { admin_name, contact, password, shop_name, sub_end, email,apikey,apisecret } = formData;
   
     if (!admin_name || !contact || !password || !shop_name || !sub_end || !email || !apikey || !apisecret) {
+      setLoader(false);
       alert("All fields must be filled out!");
       return;
     }
     if(admin_name.length < 3) {
+      setLoader(false);
       alert("Name must be at least 3 characters long");
       return;
     }
     if(contact.length !== 10) {
+      setLoader(false);
       alert("Contact number must be 10 digits long");
       return;
     }
     if(password.length < 4) {
+      setLoader(false);
       alert("Password must be at least 6 characters long");
       return;
     }
     if(shop_name.length < 3) {
+      setLoader(false);
       alert("Shop name must be at least 3 characters long");
       return;
     }
     if(apikey.length < 3) {
+      setLoader(false);
       alert("API Key must be at least 3 characters long");  return;}
-    if(apisecret.length < 3){
+      if(apisecret.length < 3){
+      setLoader(false);
       apikey("API Secret must be at least 3 characters long"); return;  
     }
     //! system to check weather api keys are correct
-
+    
     const passKey = prompt("Enter The Pass Key To Continue");
     if(passKey !== process.env.NEXT_PUBLIC_ON_BOARD_KEY) {
+      setLoader(false);
       alert("INCORRECT KEY");
       return;
     }
@@ -101,7 +111,7 @@ const Page = () => {
 
    
     // encrypt api key and apisecret key
-   
+    
     // const encryptedApiKey = encryptData(apikey,process.env.NEXT_PUBLIC_SECRET_KEY_CF);
     // const encryptedApiSecret = encryptData(apisecret,process.env.NEXT_PUBLIC_SECRET_KEY_CF);
    
@@ -112,7 +122,7 @@ const Page = () => {
       // apikey: encryptedApiKey,
       // apisecret: encryptedApiSecret,
     }));
-
+    
     const newFormData = {
       ...formData,
       shop_id: generate_shop_id,
@@ -122,7 +132,7 @@ const Page = () => {
   
     // Call the API to save data
     try {
-     
+      
       const response = await fetch('/api/onboarduser', {
         method: 'POST',
         headers: {
@@ -130,12 +140,12 @@ const Page = () => {
         },
         body: JSON.stringify(newFormData),  // Use the updated form data with shop_id
       });
-  
+      
       const data = await response.json();
   
       if (data.ok) {
         
-        localStorage.setItem("adminData", JSON.stringify(data.newAdmin));  
+        localStorage.setItem("adminData", JSON.stringify(newFormData));  
         setAdminDataFromLocalStorage();  
         //! Not setting the admin and local data in the store
         alert("Admin created successfully! Redirecting To Your Dashboard...");
@@ -149,7 +159,11 @@ const Page = () => {
     catch (error) {
       console.error("Error during admin creation:", error);
     }
+    finally{
+      setLoader(false);
+    }
 
+    setLoader(false);
   };
   
 
@@ -190,6 +204,13 @@ const handlePlanSelect = (plan) => {
   };
 
   return (
+    <>
+    {loader ? (
+      <div className="fixed overflow-x-hidden inset-0 flex flex-col items-center justify-center z-50 bg-black bg-opacity-50 cursor-not-allowed">
+        <Loaderui />
+        <p className="mt-4 text-gray-500 text-lg font-semibold">Wait a moment...</p>
+      </div>
+    ) : null}
     <div className="bg-black h-screen w-screen flex items-center justify-center">
       <Tilt
         className="flex w-9/12 h-4/5 rounded-lg overflow-hidden shadow-lg"
@@ -437,6 +458,7 @@ const handlePlanSelect = (plan) => {
         </div>
       </Tilt>
     </div>
+                  </>
   );
 };
 

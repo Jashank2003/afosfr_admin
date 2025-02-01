@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <> 
-        <div> 
+        <div className="third-step"> 
 
       {showNavbar && (
         <div className={`relative flex flex-col bg-[#161616] w-72 h-screen `}> 
@@ -57,7 +57,7 @@ const Navbar = () => {
             Dashboard</Link>
           {/* if active true color ko white krna hai */}
 
-          <Link href="/liveorders" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/liveorders' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/liveorders" className={`fourth-step text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/liveorders' ? 'bg-[#50607D]' : ''}`}>
           {" "}<PiggyBank
               size={26}
               color="#B9B9B9"
@@ -65,7 +65,7 @@ const Navbar = () => {
               />{" "}
             Live orders
           </Link>
-          <Link href="/foodstock" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/foodstock' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/foodstock" className={`fifth-step text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/foodstock' ? 'bg-[#50607D]' : ''}`}>
             <LocationFood
               size={26}
               color="#B9B9B9"
@@ -81,7 +81,7 @@ const Navbar = () => {
             />{"  "}
             Take order M. 
           </Link>
-          <Link href="/sales" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/sales' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/sales" className={`sixth-step text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/sales' ? 'bg-[#50607D]' : ''}`}>
             <Analytics
               size={26}
               color="#B9B9B9"
@@ -89,7 +89,7 @@ const Navbar = () => {
               />{" "}
             Analytics
           </Link>
-          <Link href="/ordershistory" className={`text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/ordershistory' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/ordershistory" className={`seventh-step text-white font-semibold my-3 p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/ordershistory' ? 'bg-[#50607D]' : ''}`}>
             <History size={26} color="#B9B9B9" style={{ marginRight: "5px" }} />{" "}
             History
           </Link>
@@ -100,7 +100,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col mb-12 p-2  m-auto">
-          <Link href="/userprofile" className={`text-white font-semibold  p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/userprofile' ? 'bg-[#50607D]' : ''}`}>
+          <Link href="/userprofile" className={`eighth-step text-white font-semibold  p-2 w-40 flex items-center rounded-2xl hover:bg-[#50607D] duration-200 ${pathname === '/userprofile' ? 'bg-[#50607D]' : ''}`}>
             <Settings
               size={26}
               color="#B9B9B9"

@@ -13,6 +13,8 @@ import useReadyOrderList from '../../contexts/readyOrderList';
 import useAdminDataStore from '../../contexts/adminDataStore';
 import {SessionProvider} from 'next-auth/react';
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({children}) {
 
@@ -23,6 +25,8 @@ export default function RootLayout({children}) {
   const {setAdminDataFromLocalStorage ,adminData} = useAdminDataStore();
   const [socket,setsocket] = useState(undefined)
 
+  
+   
     useEffect(()=>{
       if(adminData == null){
         setAdminDataFromLocalStorage();
@@ -54,6 +58,9 @@ export default function RootLayout({children}) {
         socket.off("fetchOrder"); // Cleanup socket event listener on component unmount
       };
     },[shopId,dailyOrderCount, incrementDailyOrderCount,dailyRevenue,updateRevenue, setOrders, readyOrders]);
+
+    
+
 
   return (
     <html lang="en">

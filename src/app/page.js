@@ -15,6 +15,7 @@ import {NotStarted} from '@styled-icons/material-sharp/NotStarted'
 import { Londrina_Sketch, Kranky ,Rubik } from "next/font/google";
 import Contactui from './components/Contactui';
 import Loaderui from './components/Loaderui';
+import Subscribeui from './components/Subscribeui';
 
 const kranky = Kranky({ subsets: ["latin"] ,weight: "400" });
 const rubik = Rubik({ subsets: ["latin"] ,weight: "400" });
@@ -151,6 +152,9 @@ function HomePage() {
     <li>
       <Link href="#about" scroll={true} className="hover:text-yellow-400 transition duration-300">About Us</Link>
     </li>
+    <li>
+      <Link href="#pricing" scroll={true} className="hover:text-yellow-400 transition duration-300">Pricing</Link>
+    </li>
   </ul>
 
   {/* Contact Button */}
@@ -174,7 +178,7 @@ function HomePage() {
   {/* Mobile Menu */}
   {isMenuOpen && (
     
-    <ul className="md:hidden  bg-black   bg-opacity-95 w-[120%] text-center flex flex-col justify-start space-y-10 py-4 z-20">
+    <ul className="md:hidden  bg-black  overflow-x-hidden  bg-opacity-95 w-[120%] text-center flex flex-col justify-start space-y-10 py-4 z-20">
       <li>
         <Link href="#home" scroll={true} className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>Home</Link>
       </li>
@@ -188,7 +192,7 @@ function HomePage() {
         <Link href="#contact" scroll={true} className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>Contact Us</Link>
       </li>
       <li>
-        <span href="#contact" scroll={true} className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>Close menu</span>
+        <Link href="#pricing" scroll={true} className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
       </li>
     </ul>
     
@@ -198,7 +202,7 @@ function HomePage() {
 
 
       {/* Main Content */}
-      <div className=' hidden md:block h-screen overflow-x-hidden'>
+      <div className=' hidden md:block h-screen overflow-x-hidden '>
 
       <div className=" hide-scrollbar relative h-screen flex" id="home">
        
@@ -373,7 +377,7 @@ function HomePage() {
             data-aos-duration="2000"
             >
             <div className="card-3d-right shadow-image">
-              <img src="/feature1.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
+              <img src="/feature2.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
               <div className="image-shadow"></div> 
             </div>
           </div>
@@ -383,7 +387,7 @@ function HomePage() {
         {/* Feature 2 Responsive */}
       <div className="md:hidden flex flex-col items-center space-y-8 my-32">
         <div className="w-full flex justify-center" data-aos="zoom-out-up" data-aos-duration="2000">
-          <img src="/feature1.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
+          <img src="/feature2.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
         </div>
 
         <div className="w-full text-left p-4" data-aos="fade-left">
@@ -402,7 +406,7 @@ function HomePage() {
             data-aos-duration="2000"
             >
             <div className="card-3d-left shadow-image">
-              <img src="/feature1.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
+              <img src="/feature3.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
               <div className="image-shadow"></div> 
             </div>
           </div>
@@ -418,7 +422,7 @@ function HomePage() {
         {/* Feature 3 Responsive */}
       <div className="md:hidden flex flex-col items-center space-y-8 my-32">
         <div className="w-full flex justify-center" data-aos="zoom-out-up" data-aos-duration="2000">
-          <img src="/feature1.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
+          <img src="/feature3.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
         </div>
 
         <div className="w-full text-left p-4" data-aos="fade-left">
@@ -444,7 +448,7 @@ function HomePage() {
             data-aos-duration="2000"
             >
             <div className="card-3d-right shadow-image">
-              <img src="/feature1.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
+              <img src="/feature4.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
               <div className="image-shadow"></div> 
             </div>
           </div>
@@ -454,7 +458,7 @@ function HomePage() {
         {/* Feature 4 Responsive */}
         <div className="md:hidden flex flex-col items-center space-y-8 my-32">
         <div className="w-full flex justify-center" data-aos="zoom-out-up" data-aos-duration="2000">
-          <img src="/feature1.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
+          <img src="/feature4.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
         </div>
 
         <div className="w-full text-left p-4" data-aos="fade-left">
@@ -509,6 +513,18 @@ function HomePage() {
         <p className="text-lg text-center max-w-3xl text-white">
           At Palate Prestige, we believe in revolutionizing the dining experience. Our mission is to provide innovative solutions that simplify restaurant management and enhance customer satisfaction. Join us on this journey as we redefine the way food is ordered and enjoyed.
         </p>
+      </div>
+
+      {/* Pricing  Section */}
+      <div id="pricing" className="bg-black text-white flex flex-col items-center justify-center p-10">
+      <h2 className="text-6xl text-white sm:text-left md:text-center font-black m-20  " data-aos="fade-up" data-aos-duration="2000" >Pricing</h2>
+          <div className='flex flex-wrap justify-center mb-20 p-2 space-x-10'>
+            <Subscribeui planName="1 month plan" data="Unlock all premium features of PalatePrestige for a month. Enjoy streamlined restaurant management, real-time order tracking, and sales analytics to grow your business." price="0.00" />
+            <Subscribeui planName="6 month plan" data="Take your business to the next level with a 6-month subscription. Access advanced tools like inventory management, QR code ordering, and integrated analytics for sustained success."price="0.00" />
+            <Subscribeui planName="12 month plan" data="Experience the full potential of PalatePrestige with a 12-month plan. Enjoy uninterrupted access to all features, priority support, and exclusive updates tailored to enhance your operations." price="0.00"/>
+          </div>
+          <p className=' mx-auto text-center p-4 rounded-lg border-2 border-yellow-500 mb-20'>Alert: We are currently in the testing phase, so there's no need to worry about pricing. You can subscribe for <span className='font-bold text-yellow-500'>free!</span></p>
+
       </div>
 
       {/* Contact Us Section */}

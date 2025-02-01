@@ -280,7 +280,7 @@ const deleteItem = async(foodname)=>{
     
     <div className='flex flex-row justify-between align-middle  p-1 mx-4 '>
     
-    <button className=' hover:bg-[#7fa28a]  duration-75 rounded-xl bg-[#A7BEAE] m-2  text-small h-12 px-2' onClick={handleaddbut}>
+    <button className='add-item-button hover:bg-[#7fa28a]  duration-75 rounded-xl bg-[#A7BEAE] m-2  text-small h-12 px-2' onClick={handleaddbut}>
       Add item <CartPlusFill size={24} color='black'/>
     </button>
 
@@ -382,7 +382,7 @@ const deleteItem = async(foodname)=>{
             )}
 
       {/* Search  system here  */}
-      <div className="w-[12vw] h-12 mt-2 shadow-sm m-2 " >
+      <div className="search-box w-[12vw] h-12 mt-2 shadow-sm m-2 " >
 
         <div className="flex ">
         <Search color='white' size={26} className='relative top-2.5 left-6' />
@@ -436,7 +436,7 @@ const deleteItem = async(foodname)=>{
 
           </div>
       {/* Display foood meny  */}
-      <div className={`p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':'bg-transparent'}`}>
+      <div className={`product-table p-2 my-4  mx-4 h-[80vh] bg-[#161616] ${tableanimation? 'animate-pulse':'bg-transparent'}`}>
         {/* <h1 className=" text-lg font-semibold mb-4">Display Food Menu </h1> */}
         <table className="w-full border">
           <thead>

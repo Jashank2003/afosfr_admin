@@ -18,12 +18,11 @@ export async function POST(request) {
 
   try {
     
-    const database = client.db('afosfr'); // Replace with your database name
-    const admins = database.collection('admins'); // Your collection for storing admin data
-
+    const database = client.db('afosfr');
+    const admins = database.collection('admins'); 
     // Insert the admin data into the database
     const newAdmin = await admins.insertOne(body);
-
+    
     // Return the response with the newly created admin data
     return NextResponse.json({ newAdmin, ok: true });
   } catch (error) {
