@@ -477,7 +477,7 @@ function HomePage() {
               data-aos-duration="2000"
               >
               <div className="card-3d-left shadow-image">
-                <img src="/feature1.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
+                <img src="/feature5.png" alt="Feature 1" className="rounded-sm border-6 border-black" />
                 <div className="image-shadow"></div> 
               </div>
             </div>
@@ -493,7 +493,7 @@ function HomePage() {
                 {/* Feature 5 Responsive */}
                 <div className="md:hidden flex flex-col items-center space-y-8 my-32">
         <div className="w-full flex justify-center" data-aos="zoom-out-up" data-aos-duration="2000">
-          <img src="/feature1.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
+          <img src="/feature5.png" alt="Feature 1" className="w-[95%] h-auto object-cover" />
         </div>
 
         <div className="w-full text-left p-4" data-aos="fade-left">
