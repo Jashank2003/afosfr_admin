@@ -93,7 +93,7 @@ const Page = () => {
     }
     //! system to check weather api keys are correct
     
-    const passKey = prompt("Enter The Pass Key To Continue");
+    const passKey = prompt("Enter The Pass Key To Continue (get your passkey by contacting us)");
     if(passKey !== process.env.NEXT_PUBLIC_ON_BOARD_KEY) {
       setLoader(false);
       alert("INCORRECT KEY");

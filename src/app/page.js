@@ -39,8 +39,21 @@ function HomePage() {
   const [contactemail, setContactEmail] = useState('');
   const [contactquery, setContactQuery] = useState('');
 
+  const [isSmallScreen , setIsSmallScreen] = useState(false);
+  const [ showSmallScreenPopup,setShowSmallScreenPopup] = useState(false);
+
 
     // useEffects
+    useEffect(() => {
+      const checkScreenSize = () => {
+        setIsSmallScreen(window.innerWidth < 768); // Adjust breakpoint as needed
+      };
+      checkScreenSize(); // Initial check
+      window.addEventListener("resize", checkScreenSize);
+      
+      return () => window.removeEventListener("resize", checkScreenSize);
+    }, []);
+
     useEffect(() => {
       AOS.init({
         duration: 1000, // Animation duration
@@ -64,6 +77,7 @@ function HomePage() {
       };
     }, [lastScrollY]);
 
+
     useEffect(() => {
       if (session) {
         handleUserCheck(); 
@@ -74,6 +88,11 @@ function HomePage() {
     //functions
     const handleUserCheck = async () => {
       try {
+
+        if(isSmallScreen){
+          // setShowSmallScreenPopup(true);
+          return;
+        }
         setLoading(true);
         console.log("Session exists, checking if email exists in the DB");
   
@@ -107,7 +126,16 @@ function HomePage() {
     };
 
     const handleLogin = async () => {
+      // i want to add a thing like if screen size is phone then we don't need to sign in or anythin just
+      // show popup like you need bigger screen or something like tabs or laptops 
+      // so what i am thinking i am making a state and a component for that popup thing and i will set it true when i click on login and if screen size is small  
       console.log("Session before Get Started click:", session);
+
+      if (isSmallScreen) {
+        setShowSmallScreenPopup(true);
+        return;
+      }
+
       setLoading(true);
   
       if (!session) {
@@ -125,11 +153,23 @@ function HomePage() {
 
   return (
     <>
+    <div className="overflow-x-hidden">
+
       {/* Navbar Section */}
       {Loading ? (
       <div className="fixed overflow-x-hidden inset-0 flex flex-col items-center justify-center z-50 bg-black bg-opacity-50 cursor-not-allowed">
         <Loaderui />
         <p className="mt-4 text-gray-500 text-lg font-semibold">Wait a moment...</p>
+      </div>
+    ) : null}
+
+    {showSmallScreenPopup ? (
+      <div className="fixed overflow-x-hidden inset-0 flex flex-col items-center justify-center z-50 bg-black bg-opacity-50 cursor-not-allowed">
+        <div className='flex flex-col items-center bg-white w-[80%] rounded-sm'>
+          <img src="/oops.png" alt="oops !" />
+        <p className="mt-4  text-gray-500 mx-auto text-lg font-semibold text-center">Hey there! This app needs a bit more space. Try using a bigger screen like a tablet or laptop</p>
+        <button  className="bg-red-400 active:bg-red-500 py-2 px-4  m-2 rounded-sm" onClick={() => setShowSmallScreenPopup(false)}>ok</button>
+        </div>
       </div>
     ) : null}
 
@@ -196,7 +236,7 @@ function HomePage() {
       </li>
     </ul>
     
-
+    
   )}
 </nav>
 
@@ -253,7 +293,7 @@ function HomePage() {
             fill={true}
             style={{ objectFit: "cover" }}
             className="mix-blend-multiply"
-          />
+            />
 
           {/* Blending Effect */}
           <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black opacity-100"></div>
@@ -271,7 +311,7 @@ function HomePage() {
       fill={true}
       style={{ objectFit: 'cover' }}
       className="z-0"
-    />
+      />
   </div>
 
   {/* <!-- Content Overlay --> */}
@@ -306,7 +346,7 @@ function HomePage() {
         className={`border-2 w-[80%] px-8 py-3 bg-black rounded-full overflow-hidden group active:bg-yellow-400 ${
           Loading ? 'disabled opacity-50 cursor-not-allowed' : ''
         }`}
-      >
+        >
         <span className="relative z-10 flex items-center justify-center space-x-2 text-white">
           <img src="/google.png" alt="Google" className="w-4 h-4" />
           <span className="font-semibold text-lg">
@@ -556,7 +596,7 @@ function HomePage() {
           name="name"  // Add name attribute for Formspree
           className="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-white"
           required 
-        />
+          />
       </div>
       <div className="mb-4">
         <label className="block text-sm font-semibold mb-2" htmlFor="email">Email</label>
@@ -566,7 +606,7 @@ function HomePage() {
           name="email"  // Add name attribute for Formspree
           className="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-white"
           required 
-        />
+          />
       </div>
       <div className="mb-4">
         <label className="block text-sm font-semibold mb-2" htmlFor="query">Your Query</label>
@@ -576,7 +616,7 @@ function HomePage() {
           rows="4"
           className="w-full p-3 border border-gray-600 rounded-md bg-gray-800 text-white"
           required 
-        />
+          />
       </div>
       <button 
         type="submit" 
@@ -588,6 +628,7 @@ function HomePage() {
   </div>
 </div>
 
+        </div>
     </>
   );
 }

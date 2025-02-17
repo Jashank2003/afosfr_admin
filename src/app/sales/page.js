@@ -153,8 +153,6 @@ const page = () => {
                     <button className="bg-gray-900 text-white p-2 rounded-md mx-2 hover:bg-gray-700 duration-150" onClick={()=> setRange('7 days')} >Last 7 days</button>
                     <button className="bg-gray-900 text-white p-2 rounded-md mx-2 hover:bg-gray-700 duration-150" onClick={()=> setRange('monthly')} >Monthly</button>
                     <button className="bg-gray-900 text-white p-2 rounded-md mx-2 hover:bg-gray-700 duration-150" onClick={()=> setRange('yearly')} >Yearly</button>
-                    <button className="bg-gray-900 text-white p-2 rounded-md mx-2 hover:bg-gray-700 duration-150" onClick={()=> setRange('yearly')} >Yearly</button>
-
                     <button className="bg-gray-900 text-white p-2 rounded-md mx-2 hover:bg-gray-700 duration-150" onClick={() => setShowCustomRange(true)}>
                     Apply custom range
                     </button>
