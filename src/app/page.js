@@ -11,6 +11,7 @@ import  useAdminDataStore  from '../../contexts/adminDataStore';
 
 
 import {ReorderThree} from '@styled-icons/ionicons-outline/ReorderThree';
+import {Download} from '@styled-icons/material/Download'
 import {NotStarted} from '@styled-icons/material-sharp/NotStarted'
 import { Londrina_Sketch, Kranky ,Rubik } from "next/font/google";
 import Contactui from './components/Contactui';
@@ -195,6 +196,11 @@ function HomePage() {
     <li>
       <Link href="#pricing" scroll={true} className="hover:text-yellow-400 transition duration-300">Pricing</Link>
     </li>
+    <li> 
+      <Link
+       href="https://palate-prestige.en.uptodown.com/android" target="_blank" 
+       className=" hover:text-yellow-400 transition duration-300">User app <Download size={18} clasName="pb-1" color="white"/></Link>
+      </li>
   </ul>
 
   {/* Contact Button */}
@@ -233,6 +239,11 @@ function HomePage() {
       </li>
       <li>
         <Link href="#pricing" scroll={true} className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
+      </li>
+    <li> 
+      <Link
+       href="https://palate-prestige.en.uptodown.com/android" target="_blank" 
+       className="text-yellow-400 transition duration-300" onClick={() => setIsMenuOpen(false)}>User app <Download size={18} clasName="pb-1" color="white"/></Link>
       </li>
     </ul>
     
